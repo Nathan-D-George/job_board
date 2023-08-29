@@ -1,0 +1,7 @@
+delete 2
+
+<%= link_to "Delete for Real Realz", destroy_user_registration_path(id: @user.id), 
+                                     data:{turbo_method: :delete, turbo_confirm: "Are you Sure? This can't be undone"},
+                                     class:'btn', style:'background-color: red' %>
+                                     
+<%= link_to "Cancel", root_path, class:'btn', style:'background-color: gainsboro' %>

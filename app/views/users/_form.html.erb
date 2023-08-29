@@ -1,0 +1,35 @@
+<%= form_with model:@user, local: true do |u| %>
+  <p>
+    <%= u.label :name %>
+    <%= u.text_field :name, class:'form-control' %>
+  </p>
+  <p>
+    <%= u.label :email %>
+    <%= u.text_field :email, class:'form-control' %>
+  </p>
+  <% if @user.new_record? %>
+    <p>
+      <%= u.label :password %>
+      <%= u.password_field :password, class:'form-control' %>
+    </p>
+    <p>
+      <%= u.label :password_confirmation %>
+      <%= u.password_field :password_confirmation, class:'form-control' %>
+    </p>
+  <% else %>
+  
+    <%= link_to "Change Pasword", edit_password_path(id: @user.id), class:'btn btn-dark mt-4 mb-4'%>
+  <% end %>  
+  <p>
+    <%= u.label  :tertiary_education %>
+    <%= u.select :tertiary_education, ["no", "studying", "completed"], {}, {class:'form-select'} %>
+  </p>
+  <p>
+    <%= u.label :cover_letter %>
+    <%= u.text_area :cover_letter, class:'form-control', style:'height:200px' %>
+  </p>
+
+  <p>
+    <%= u.submit(@user.new_record? ? "Create Account" : "Update Account", class:'btn', style:'background-color: gainsboro') %>
+  </p>
+<% end %> 

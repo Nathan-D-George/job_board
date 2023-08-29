@@ -1,8 +1,10 @@
-<p> 
-  <%= link_to '#', style:'color: black; text-decoration: none' do %>
-    <%= fa_icon 'user' %> &nbsp Profile 
-  <% end %>
-</p>
+<% if Current.user.present?%>
+  <p> 
+    <%= link_to edit_user_registration_path(id:Current.user.id), style:'color: black; text-decoration: none' do %>
+      <%= fa_icon 'user' %> &nbsp Profile 
+    <% end %>
+  </p>
+<% end %>
 <p> 
   <%= link_to '#', style:'color: black; text-decoration: none' do %>
     <%= fa_icon 'file-text' %> &nbsp Your Applications

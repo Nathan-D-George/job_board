@@ -1,0 +1,17 @@
+<h1>Sessions#new</h1>
+
+<div class='col-md-6'>
+  <%= form_with model:@user, url: new_user_session_path do |u| %>
+    <p>
+      <%= u.label :email %>
+      <%= u.text_field :email, class:'form-control' %>
+    </p>
+    <p>
+      <%= u.label :password %>
+      <%= u.password_field :password, class:'form-control' %>
+    </p>
+    <p>
+      <%= u.submit "Sign In", class:'btn', style:'background-color: gainsboro' %>
+    </p>
+  <% end %>
+</div>

@@ -14,6 +14,7 @@
 
   <body style='background-color: gainsboro'>
     <%= render 'layouts/navbar' %>
+    <%= render 'layouts/flash'  %>
     <% if request.fullpath.split('/').blank? %>
       <div class='d-flex justify-content-center' style='background-color: white'>
         <div class='col-md-4'> 
