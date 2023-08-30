@@ -7,6 +7,15 @@
     <%= u.label :email %>
     <%= u.text_field :email, class:'form-control' %>
   </p>
+  
+  <%
+=begin%>
+ <p>
+    <%= u.file_field :photo %>
+  </p> 
+<%
+=end%>
+
   <% if @user.new_record? %>
     <p>
       <%= u.label :password %>
@@ -17,7 +26,6 @@
       <%= u.password_field :password_confirmation, class:'form-control' %>
     </p>
   <% else %>
-  
     <%= link_to "Change Pasword", edit_password_path(id: @user.id), class:'btn btn-dark mt-4 mb-4'%>
   <% end %>  
   <p>

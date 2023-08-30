@@ -4,3 +4,4 @@
   <%= render 'form' %>
 </div>
 <%= link_to "Delete Account", delete_1_path(id: @user.id), class:'btn btn-danger'%>
+<%= link_to "Cancel", show_user_path(id: @user.id), class:'btn btn-secondary' %>

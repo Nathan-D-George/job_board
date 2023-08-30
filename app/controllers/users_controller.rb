@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :initialize_function, only: [:show, :edit, :destroy, :edit_password]
 
   def new
@@ -6,7 +7,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
+    user = User.new#(user_params)
+    user.name  = params[:user][:name]
+    user.email = params[:user][:email]
+    # user.photo = params[:user][:photo] if params[:user][:photo].present?
+    user.password = params[:user][:password]
+    user.password_confirmation = params[:user][:password_confirmation]
+    user.tertiary_education    = params[:user][:tertiary_education]
+    user.cover_letter          = params[:user][:cover_letter]
+    debugger
     if user.save
       flash[:notice] = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id
@@ -18,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # debugger
+    @photo = "https://images.unsplash.com/photo-1619472376731-3ca648a34b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
   end
 
   def edit
@@ -44,7 +53,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    debugger
     @user.destroy
     session[:user_id] = nil
     flash[:notice]    = 'Deleted User Account'
@@ -55,7 +63,29 @@ class UsersController < ApplicationController
   end
 
   def change_password
-    debugger
+    user = Current.user
+    if user.authenticate(params[:user][:old_password])
+      user.password              = params[:user][:new_password]
+      user.password_confirmation = params[:user][:new_password_confirmation]
+      if user.password == user.password_confirmation && user.valid_password?
+        user.save
+        flash[:notice] = "Password Updated"
+      else
+        flash[:alert]  = "Something went wrong"
+      end
+    end
+    redirect_to edit_user_registration_path(id: user.id)
+  end
+
+  def search_users
+    @users_results = search_users_results
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update('search_results', partial: 'layouts/search_results', locals: { users: @users })
+        ]
+      end
+    end
   end
 
   private
@@ -64,6 +94,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require('user').permit(:name, :email, :password, :password_confirmation, :tertiary_education, :cover_letter)
+    params.require('user').permit(:name, :email, :password, :password_confirmation, :tertiary_education, :cover_letter) 
   end
 end

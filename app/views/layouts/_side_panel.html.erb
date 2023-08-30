@@ -1,6 +1,6 @@
 <% if Current.user.present?%>
   <p> 
-    <%= link_to edit_user_registration_path(id:Current.user.id), style:'color: black; text-decoration: none' do %>
+    <%= link_to show_user_path(id:Current.user.id), style:'color: black; text-decoration: none' do %>
       <%= fa_icon 'user' %> &nbsp Profile 
     <% end %>
   </p>
@@ -13,5 +13,17 @@
 <p> 
   <%= link_to '#', style:'color: black; text-decoration: none' do %>
     <%= fa_icon 'gear' %> &nbsp Settings 
+  <% end %>
+</p>
+
+<p>
+  <%= form_with url: search_users_path, method: :post, id: 'search_form' do |f| %>
+    <%= f.search_field :search_word, value: params[:search_word],placeholder: 'Search word', autocomplete: 'off' %>
+    <%= f.submit "Search", class:'btn btn-outline-light', style:'color:black' %>
+  <% end %>
+  <% if @users_results.present? %>
+    <div id='search_results'>
+      <%= render 'layouts/search_results', users: @users_results %>
+    </div>
   <% end %>
 </p>

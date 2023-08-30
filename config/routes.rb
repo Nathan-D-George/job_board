@@ -15,14 +15,12 @@ Rails.application.routes.draw do
 
   get    '/users/change_password', to: 'users#edit_password',   as: 'edit_password'
   post   '/users/change_password', to: 'users#change_password', as: 'change_password'
+  post   '/users/search_results',  to: 'users#search_users',    as: 'search_users'
 
   root           to: 'pages#home'
   get  '/about', to: 'pages#about'
 
 end
-
-
-
 
 
 
