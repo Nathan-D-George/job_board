@@ -8,13 +8,10 @@
     <%= u.text_field :email, class:'form-control' %>
   </p>
   
-  <%
-=begin%>
- <p>
-    <%= u.file_field :photo %>
+  <p>
+    <%= u.file_field :photo, accept: 'image/jpg, image/jpeg, image/png, image/avif', class:'form-control' %>
   </p> 
-<%
-=end%>
+
 
   <% if @user.new_record? %>
     <p>

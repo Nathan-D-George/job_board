@@ -1,0 +1,21 @@
+<div class='row'>
+  <%= form_with model: @search, url: search_results_path, class:'col-md-8', method: :post, id: 'search_form' do |f| %>
+    <%= f.search_field :search_word, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
+    <%= f.submit "Search", class:'btn btn-outline-dark mt-3' %>
+  <% end %>
+  <h4 class='mt-4 mb-4'> Search Results </h4>
+  <div class='col-md-5'>
+    <% if @users.present? %>
+      <h5> People </h5>
+      <div id="search_results">
+        <%= render "searches/search_results", users: @users %>
+      </div>
+    <% end %>
+  </div>
+  <div class='col-md-1'></div>
+  <div class=col-md-5>
+    <% if @companies.present? %>
+      <h5> Businesses </h5>
+    <% end %>
+  </div>
+</div>

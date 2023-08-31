@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get  '/searches/search',  to: 'searches#search',  as: 'search'
+  post '/searches/results', to: 'searches#results', as: 'search_results'
+
   get    '/sessions/new',     to: 'sessions#new',     as: 'new_session'
   post   '/sessions/create',  to: 'sessions#create',  as: 'new_user_session'
   delete '/sessions/destroy', to: 'sessions#destroy', as: 'destroy_user_session'
@@ -15,7 +18,6 @@ Rails.application.routes.draw do
 
   get    '/users/change_password', to: 'users#edit_password',   as: 'edit_password'
   post   '/users/change_password', to: 'users#change_password', as: 'change_password'
-  post   '/users/search_results',  to: 'users#search_users',    as: 'search_users'
 
   root           to: 'pages#home'
   get  '/about', to: 'pages#about'
@@ -36,8 +38,9 @@ end
 
 
 
-
 =begin
+  the Joy belonging co
+  So good planetshakers
 
   Lord of my life
   Here is my heart

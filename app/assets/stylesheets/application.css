@@ -67,3 +67,8 @@ panel{
   height: 150px;
   width:  150px;
 }
+.small-circle-photo{
+  border-radius: 50%;
+  height: 80px;
+  width:  80px;
+}

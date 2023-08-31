@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include UsersHelper
   before_action :initialize_function, only: [:show, :edit, :destroy, :edit_password]
 
   def new
@@ -7,15 +6,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new#(user_params)
+    user = User.new #(user_params)
     user.name  = params[:user][:name]
     user.email = params[:user][:email]
-    # user.photo = params[:user][:photo] if params[:user][:photo].present?
+    user.photo = params[:user][:photo] if params[:user][:photo].present?
     user.password = params[:user][:password]
     user.password_confirmation = params[:user][:password_confirmation]
     user.tertiary_education    = params[:user][:tertiary_education]
     user.cover_letter          = params[:user][:cover_letter]
-    debugger
+    # debugger
     if user.save
       flash[:notice] = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id
@@ -36,7 +35,12 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.update(user_params)
+    user.name  = params[:user][:name]
+    user.email = params[:user][:email]
+    user.photo = params[:user][:photo] if params[:user][:photo].present?
+    user.tertiary_education = params[:user][:tertiary_education]
+    user.cover_letter       = params[:user][:cover_letter]
+    if user.save
       flash[:notice] = 'Account successfully updated'
     else
       flash[:alert]  = 'Something went wrong'
@@ -75,17 +79,6 @@ class UsersController < ApplicationController
       end
     end
     redirect_to edit_user_registration_path(id: user.id)
-  end
-
-  def search_users
-    @users_results = search_users_results
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.update('search_results', partial: 'layouts/search_results', locals: { users: @users })
-        ]
-      end
-    end
   end
 
   private
