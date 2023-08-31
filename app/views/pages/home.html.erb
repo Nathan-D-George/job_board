@@ -13,6 +13,7 @@
   <% if !Current.user.present? %>
     <%= link_to 'Sign Up', new_user_path,    class:'btn', style:'background-color: gainsboro' %>
     <%= link_to 'Sign In', new_session_path, class:'btn btn-outline-dark' %>
+    <%= link_to 'Register a Company', new_company_user_path, class:'btn', style:'background-color: black; color:gainsboro' %>
   <% else %>
     <%= link_to 'Job Feed', '#', class:'btn', style:'background-color: gainsboro' %>
   <% end %>

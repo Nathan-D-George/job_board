@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new #(user_params)
+    user = User.new
     user.name  = params[:user][:name]
     user.email = params[:user][:email]
     user.photo = params[:user][:photo] if params[:user][:photo].present?
@@ -14,7 +14,6 @@ class UsersController < ApplicationController
     user.password_confirmation = params[:user][:password_confirmation]
     user.tertiary_education    = params[:user][:tertiary_education]
     user.cover_letter          = params[:user][:cover_letter]
-    # debugger
     if user.save
       flash[:notice] = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id

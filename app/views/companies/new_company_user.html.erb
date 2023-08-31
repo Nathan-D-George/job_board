@@ -1,0 +1,20 @@
+<h4> Enter Sign In Details for Your Company Admin </h4>
+<div class='col-md-6'>
+  <%= form_with model: @user, url: create_company_user_path, method: :post do |f| %>
+    <%= f.label :Username, class:'mt-3' %>
+    <%= f.text_field :name, class:'form-control' %>
+
+    
+    <%= f.label :email_Address, class:'mt-3' %>
+    <%= f.text_field :email, class:'form-control' %>
+
+    <%= f.label :password, class:'mt-3' %>
+    <%= f.password_field :password, class:'form-control' %>
+
+    <%= f.label :Password_confirmation, class:'mt-3' %>
+    <%= f.password_field :password_confirmation, class:'form-control' %>
+
+    <%= f.submit "Register Company Admin", class:'btn mt-3', style:'background-color: gainsboro' %>
+
+  <% end %>
+</div>

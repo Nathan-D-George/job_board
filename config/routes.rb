@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  resource :companies, except: [:new, :edit, :show, :destroy]
+  get    '/companies/new',      to: 'companies#new',                 as: 'new_company'
+  post   '/companies/create',   to: 'companies#create',              as: 'create_company'
+  get    '/companies/show',     to: 'companies#show',                as: 'show_company'
+  get    '/companies/edit',     to: 'companies#edit',                as: 'edit_company'
+  patch  '/companies/update',   to: 'companies#update',              as: 'update_company'
+  delete '/companies/delete',   to: 'companies#delete',              as: 'delete_company'
+  get    '/companies/search',   to: 'companies#search',              as: 'search_company'
+  post   '/companies/results',  to: 'companies#results',             as: 'company_search_results'
+  get    '/companies/list',     to: 'companies#list',                as: 'list_companies'
+  get    '/companies/new_user', to: 'companies#new_company_user',    as: 'new_company_user'
+  post   '/companies/new_user', to: 'companies#create_company_user', as: 'create_company_user'
+
   get  '/searches/search',  to: 'searches#search',  as: 'search'
   post '/searches/results', to: 'searches#results', as: 'search_results'
 
@@ -25,20 +38,8 @@ Rails.application.routes.draw do
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 =begin
+
   the Joy belonging co
   So good planetshakers
 

@@ -8,11 +8,11 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <%= link_to '#', class:'nav-link active' do %>
-            <%= fa_icon 'list' %> Job Feed
+            <%= fa_icon 'list-ul' %> Job Feed
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to "Companies", "#", class:'nav-link active' %>
+          <%= link_to "Companies", list_companies_path, class:'nav-link active' %>
         </li>
         <li class="nav-item">
           <%= link_to about_path, class:'nav-link active' do %>

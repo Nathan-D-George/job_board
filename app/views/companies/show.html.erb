@@ -1,0 +1,38 @@
+<h1> <%= @company.name %> </h1>
+<div class='d-flex justify-content-center'>
+
+
+<div class="card col-md-8 mt-4 mb-4">
+  <div class="card-header text-center">
+    <h2> <%= image_tag(@company.logo, class:'circle-photo') if @company.logo.present?%> </h2>
+  </div>
+  <div class="card-body ">
+    <div class='row'>
+      <div class='col-md-6' style='text-align:right; padding-right: 67px'>
+        <h5 class="card-title"> Name:      </h5>
+        <h5 class="card-title"> Email:     </h5>
+        <h5 class="card-title"> Location: </h5>
+        <h5 class="card-title"> Number Employees: </h5>
+      </div>
+      <div class='col-md-6'>
+        <h5 class="card-title"> <%= @company.name  %> </h5>
+        <h5 class="card-title"> <%= @company.website %> </h5>
+        <h5 class="card-title"> <%= @company.location %> </h5>
+        <h5 class="card-title"> <%= @company.number_employees %> </h5>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-muted d-flex justify-content-center">
+    <div class='row'>
+      <div class='col-md-6'>
+        <h5 class="card-title" style='text-align: right; padding-right:55px'> Description:      </h5>
+      </div>
+      <div class='col-md-5'>
+        <h5 class="card-title"> <%= @company.description  %> </h5>
+      </div>      
+    </div>
+  </div>
+</div>
+</div>
+<%= link_to "Edit Company Account", edit_company_path(id: @company.id), class:'btn btn-dark' %>
+

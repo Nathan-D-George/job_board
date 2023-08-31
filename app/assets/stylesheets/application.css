@@ -34,6 +34,7 @@ panel{
   padding-left: 20px;
   background-color: white;
   overflow-y: scroll;
+  border-radius: 20px;
 }
 
   .flash-disappear{
@@ -71,4 +72,10 @@ panel{
   border-radius: 50%;
   height: 80px;
   width:  80px;
+}
+.checkbox-button{
+  pointer-events: none;
+}
+.checkboxx input:checked ~ .checkbox-button{
+  pointer-events: all;
 }
