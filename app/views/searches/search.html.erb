@@ -16,6 +16,9 @@
   <div class=col-md-5>
     <% if @companies.present? %>
       <h5> Businesses </h5>
+      <div id="search_results2">
+        <%= render "searches/company_results", companies: @companies %>
+      </div>
     <% end %>
   </div>
 </div>

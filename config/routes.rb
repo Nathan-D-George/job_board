@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   get    '/companies/edit',     to: 'companies#edit',                as: 'edit_company'
   patch  '/companies/update',   to: 'companies#update',              as: 'update_company'
   delete '/companies/delete',   to: 'companies#delete',              as: 'delete_company'
-  get    '/companies/search',   to: 'companies#search',              as: 'search_company'
-  post   '/companies/results',  to: 'companies#results',             as: 'company_search_results'
   get    '/companies/list',     to: 'companies#list',                as: 'list_companies'
   get    '/companies/new_user', to: 'companies#new_company_user',    as: 'new_company_user'
   post   '/companies/new_user', to: 'companies#create_company_user', as: 'create_company_user'
@@ -36,6 +34,8 @@ Rails.application.routes.draw do
   get  '/about', to: 'pages#about'
 
 end
+
+
 
 
 =begin

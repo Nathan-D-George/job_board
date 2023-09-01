@@ -12,6 +12,10 @@
     <%= f.text_area :description, class:'form-control mt-2', placeholder:'Describe your company', style:'height: 175px' %>
   </div>
   <div class='mt-2'>
+    <%= f.label :logo %>
+    <%= f.file_field :logo, class:'form-control', accept:'image/png, image/jpg, image/jpeg, image/avif' %> 
+  </div>
+  <div class='mt-2'>
     <%= f.label :location %>
     <%= f.select :location, Company.location_options, {}, {class:'form-select mt-2'} %>    
   </div>

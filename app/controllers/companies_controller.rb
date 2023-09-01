@@ -1,5 +1,9 @@
 class CompaniesController < ApplicationController
-  $company_id = nil    
+  before_action :logged_in_only, except: [:new, :create, :new_company_user, :create_company_user]
+  before_action :initialize_function, only: [:edit, :show,   :delete]
+  before_action :company_admin_only,  only: [:edit, :update, :delete]
+  $company_id = nil  
+
   def new
     @company = Company.new
   end
@@ -37,7 +41,6 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Company.find(params[:id].to_i)
   end
 
   def list
@@ -45,13 +48,12 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    @company = Company.find(params[:id].to_i)
+    redirect_to show_company_path(id: @company.id), alert: "Company Admin Only" if @company.user_id != Current.user.id
     $company_id = params[:id].to_i
   end
 
   def update
     company = Company.find($company_id)
-    # debugger
     if company.update(company_params)
       flash[:notice] = 'Updated Company Information'
       redirect_to show_company_path(id: company.id)
@@ -62,17 +64,26 @@ class CompaniesController < ApplicationController
   end
 
   def delete
-    @company = Company.find(params[:id].to_i)
-  end
-
-  def search
-  end
-
-  def results
+    @user    = User.find(@company.user_id)
+    flash[:notice]    = "Deleted #{ @company.name }"
+    session[:user_id] = nil
+    @company.destroy
+    @user.destroy
+    redirect_to root_path
   end
 
   private
+
   def company_params
     params.require('company').permit(:name, :website, :description, :logo, :location, :number_employees)
   end
+
+  def initialize_function
+    @company = Company.find(params[:id].to_i)
+  end
+
+  def company_admin_only
+    redirect_to show_company_path(id: @company.id), alert: 'Only the Company Admin can Work Here' if @company.user_id == Current.user.id
+  end
+
 end

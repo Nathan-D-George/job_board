@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :initialize_function, only: [:show, :edit, :destroy, :edit_password]
+  before_action :logged_in_only, except: [:new, :create]
+  before_action :initialize_function, only: [:edit, :edit_password, :destroy, :delete1, :delete2, :show]
+  before_action :correct_user_only,   only: [:edit, :edit_password, :destroy, :delete1, :delete2]
 
   def new
     @user = User.new
@@ -87,5 +89,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require('user').permit(:name, :email, :password, :password_confirmation, :tertiary_education, :cover_letter) 
-  end
+  end 
 end

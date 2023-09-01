@@ -21,20 +21,20 @@ panel{
 }
 .panel-left{
   padding-top: 2%;
-  width: 20%;
+  width: 15%;
   float: left;
   height: 100%;
   background-color: gainsboro;
 }
 .panel-right{
   padding-top: 2%;
-  width: 80%;
+  width: 85%;
   float: right;
   min-height: 950px;
   padding-left: 20px;
   background-color: white;
   overflow-y: scroll;
-  border-radius: 20px;
+  border-radius: 30px;
 }
 
   .flash-disappear{

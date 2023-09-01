@@ -3,5 +3,5 @@
 <div class='col-md-6'>
   <%= render 'form' %>
 </div>
-<%= link_to "Delete Account", delete_company_path(id: @company.id), class:'btn btn-danger' %>
+<%= link_to "Delete Account", delete_company_path(id: @company.id), data:{turbo_method: :delete, turbo_confirm: "Delete Company"}, class:'btn btn-danger' %>
 <%= link_to "Cancel", show_company_path(id: @company.id), class:'btn btn-secondary' %>

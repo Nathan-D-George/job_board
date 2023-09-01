@@ -14,10 +14,11 @@
 
   <body style='background-color: gainsboro'>
     <%= render 'layouts/navbar' %>
-    <%= render 'layouts/flash'  %>
     <% if request.fullpath.split('/').blank? %>
+    
       <div class='d-flex justify-content-center' style='background-color: white'>
-        <div class='col-md-4'> 
+        <div class='col-md-4'>
+        <%= render 'layouts/flash'  %>
           <%= yield %>
         </div>
       </div>
@@ -25,7 +26,7 @@
       <div class='d-flex justify-content-center'>
         <div class='col-md-11 panel'>
           <div class='panel-left'>  <%= render 'layouts/side_panel' %> </div>
-          <div class='panel-right'> <%= yield %> </div>
+          <div class='panel-right'> <%= render 'layouts/flash'  %> <%= yield %> </div>
         </div>
       </div>
     <% end %>
