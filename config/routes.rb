@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  resource :companies, except: [:new, :edit, :show, :destroy]
+  resources :jobs, except: [:new, :edit, :show, :destroy]
+  get    '/job/new',     to: 'jobs#new',     as: 'new_job'
+  post   '/job/create',  to: 'jobs#create',  as: 'create_job'
+  get    '/job/show',    to: 'jobs#show',    as: 'show_job'
+  get    '/job/list',    to: 'jobs#list',    as: 'list_jobs'
+  get    '/job/edit',    to: 'jobs#edit',    as: 'edit_job'
+  patch  '/job/update',  to: 'jobs#update',  as: 'update_job'
+  delete '/job/destroy', to: 'jobs#destroy', as: 'destroy_job'
+
+  resources :companies, except: [:new, :edit, :show, :destroy]
   get    '/companies/new',      to: 'companies#new',                 as: 'new_company'
   post   '/companies/create',   to: 'companies#create',              as: 'create_company'
   get    '/companies/show',     to: 'companies#show',                as: 'show_company'
@@ -34,9 +43,6 @@ Rails.application.routes.draw do
   get  '/about', to: 'pages#about'
 
 end
-
-
-
 
 =begin
 

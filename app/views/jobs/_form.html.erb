@@ -1,0 +1,24 @@
+<%= form_with model: @job, method: :post, local: true do |j| %>
+  <div class='mt-2'>
+    <%= j.label :name %>
+    <%= j.text_field :name, class:'form-control' %>
+  </div>
+  <div class='mt-2'>
+    <%= j.label :description %>
+    <%= j.text_area :description, class:'form-control', style:'height: 250px' %>
+  </div>
+  <div class="mt-2">
+    <%= j.label :Years_of_Experience %>
+    <%= j.number_field :experience, in: 0..8, step: 1, class:'form-control'%>
+  </div>
+  <div class='mt-2'>
+    <%= j.label :salary %>
+    <%= j.number_field :salary, in: 6000..60000, step: 1000, class:'form-control' %>
+  </div>
+  <div class='mt-2'>
+    <%= j.submit "Create Job post", class:'btn', style:'background-color: gainsboro' %>
+  </div>
+<% end %>
+<div class='mt-2'>
+  <%= link_to "Cancel", show_company_path(id: @company.id), class:'btn btn-secondary' %>
+</div>

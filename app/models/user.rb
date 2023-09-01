@@ -3,9 +3,10 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :companies
+  has_many :job, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 4, maximum: 30}
-  validates :email, presence: true, uniqueness: true#, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "must be a valid email address" }
+  validates :email, presence: true, uniqueness: true #, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "must be a valid email address" }
   validates :cover_letter, length: { maximum: 255 }
 
   enum tertiary_education: %i[no studying completed]
