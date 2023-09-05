@@ -1,0 +1,16 @@
+<div class="list-group col-md-6">
+  <%= link_to show_job_path(id: job.id), class:"list-group-item list-group-item-action mb-4", style:'color:black; text-decoration: none' do %>
+    <div class='row'>
+      <div class="d-flex justify-content-between mb-2 col-md-2">
+        <%= image_tag(job.photo, class:'small-circle-photo') if job.photo.present? %>
+      </div>  
+      <div class='col-md-10'>
+        <h5>    <%= Company.find(job.company_id).name %> </h5>
+        <h6>    <%= job.name %> </h6>
+        <small> <%= job.required_experience %> </small>
+        <small> <%= job.description.truncate(40) %> </small>
+      </div>
+    </div>
+  <% end %>
+</div>
+

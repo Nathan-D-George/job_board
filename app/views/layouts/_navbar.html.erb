@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to '#', class:'nav-link active' do %>
+          <%= link_to list_jobs_path, class:'nav-link active' do %>
             <%= fa_icon 'list-ul' %> Job Feed
           <% end %>
         </li>
@@ -31,10 +31,7 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
-      </form>
+      <%= link_to "Search", search_path, class:'btn btn-outline-dark col-md-1' %>
       <% if Current.user.present? %>
         <%= link_to Current.user.name, destroy_user_session_path(id: Current.user.id), data:{turbo_method: :delete, turbo_confirm: "Log out?"}, style:'color:black; text-decoration: none; padding-left: 20px' %>
       <% else %>

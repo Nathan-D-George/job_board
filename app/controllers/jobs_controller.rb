@@ -1,4 +1,7 @@
 class JobsController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+  before_action :initialize_variables, only: [:edit, :destroy, :show]
+  before_action :company_admin_only, only:   [:edit, :destroy]
   $company_id = nil
 
   def new
@@ -16,7 +19,7 @@ class JobsController < ApplicationController
     job.company_id  = $company_id
     if job.save 
       flash[:notice] = 'Job Post Created'
-      redirect_to show_job_path(id: job.id)
+      redirect_to list_jobs_path
     else
       flash[:alert]  = 'Something went wrong'
       render :new
@@ -24,21 +27,45 @@ class JobsController < ApplicationController
   end
 
   def show
-    @job = Job.find(params[:id].to_i)
-    @company = Company.find(@job.company_id)
   end
 
   def list
+    @jobs = Job.all.order(id: :desc)                if params[:id].blank?
+    @jobs = Jobs.where(company_id: params[:id]).all if params[:id].present?
   end
 
   def edit
-    @job = Job.find(params[:id])
-    @company = Company.find(@job.company_id)
   end
 
   def update
+    job = Job.find(params[:id])
+    job.name        = params[:job][:name]
+    job.description = params[:job][:description]
+    job.required_experience  = params[:job][:experience] if params[:job][:experience].present?
+    job.salary      = params[:job][:salary]
+    if job.save
+      flash[:notice] = "Job Post Updated"
+      redirect_to show_job_path(id: job.id)
+    else  
+      flash[:alert]  = "Something went wrong"
+      render :edit
+    end
   end
 
   def destroy
+    flash[:notice] = "Job successfully deleted"
+    @job.destroy
+    redirect_to show_company_path(id: company.id )
   end
+
+   private
+
+   def company_admin_only
+    redirect_to show_job_path(id: @job.id), alert: "Company admin priveledges only !" if Current.user.id != @company.user_id
+   end
+
+   def initialize_variables
+    @job     = Job.find(params[:id])
+    @company = Company.find(@job.company_id)
+   end
 end

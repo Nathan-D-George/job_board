@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  qualification: 1
+  where: 1
+  start_date: 2023-09-05
+  end_date: 2023-09-05
+
+two:
+  user: two
+  qualification: 1
+  where: 1
+  start_date: 2023-09-05
+  end_date: 2023-09-05

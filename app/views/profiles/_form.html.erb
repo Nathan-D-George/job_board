@@ -1,0 +1,33 @@
+<%= form_with model: @profile, local: true do |p| %>
+  <div class='mt-3'>
+    <h5> <%= p.label :level %> </h5>
+    <%= p.select :level, Profile.level_options, {}, {class:'form-select mt-2'} %>
+  </div>
+  <div class='mt-3'>
+    <h5> <%= p.label :Qualification %> </h5>
+    <%= p.select :qualification, Profile.qualification_options, {}, {class:'form-select mt-2'} %> 
+  </div>
+  <div class='mt-3'>
+    <h5> <%= p.label :institution %> </h5>
+    <%= p.select :institution, Profile.institution_options, {}, {class:'form-select mt-2'} %>
+  </div>
+  <div class='mt-3'>
+    <h5> <%= p.label :Date_start %> </h5>
+    <%= p.date_field :start_date, class:'form-control' %>
+    <h5> <%= p.label :end_date, class:'mt-3'%>
+    <%= p.date_field :end_date, class:'form-control mt-2' %>
+  </div>
+  <div class='mt-3 row'>
+    <div class='col-md-6'>
+    <h5> <%= p.label :cv %> </h5>
+    <%= p.file_field :cv, class:'form-control', multiple: false %>
+    </div>
+    <div class='col-md-6'>
+      <h5> <%= p.label :academic_documents  %> </h5>
+      <%= p.file_field(:academic_docs, multiple: true, class:'form-control')  %>
+    </div>
+  </div>
+
+  <%= p.submit(@profile.new_record? ? "Create Profile" : "Update Profile", class:'btn mt-4', style:'color:black; background-color: gainsboro') %>
+
+<% end %>

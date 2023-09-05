@@ -22,9 +22,9 @@
     <div class='row'>
       <% if @user.cover_letter.present? %>
       <div class='col-md-6'>
-        <h5 class="card-title" style='text-align: right; padding-right:55px'> Cover Letter:      </h5>
+        <h5 class="card-title" style='text-align: right; padding-right:105px'> Cover Letter:      </h5>
       </div>
-      <div class='col-md-5'>
+      <div class='col-md-5'> 
         <h5 class="card-title"> <%= @user.cover_letter  %> </h5>
       </div> 
       <% end %>    
@@ -32,5 +32,9 @@
   </div>
 </div>
 <% if Current.user.id == @user.id %>
-  <%= link_to "Edit Profile", edit_user_registration_path(id: @user.id), class:'btn btn-dark mt-4' %>
+  <%= link_to "Edit Profile", edit_user_registration_path(id: @user.id), class:'btn btn-dark mt-4 mb-4' %>
+<% end %>
+<%= render 'profile' %>
+<% if Current.user.id == @user.id %>
+  <%= link_to "Edit Academic Profile",  edit_profile_path(id: @profile.id), class:'btn mt-4 mb-4', style:'background-color: gainsboro' %>
 <% end %>

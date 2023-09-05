@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  before_action :logged_in_only
+  
   def search
     @search = User.new
     users   = params[:results][:user_ids] if params[:results].present? && params[:results][:user_ids].present?

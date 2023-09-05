@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if user.save
       flash[:notice] = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id
-      redirect_to root_path
+      redirect_to new_profile_path
     else
       flash[:alert]  = 'Something went wrong'      
       redirect_to new_user_path
@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
   def show
     @photo = "https://images.unsplash.com/photo-1619472376731-3ca648a34b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+    @profile = @user.profile
   end
 
   def edit

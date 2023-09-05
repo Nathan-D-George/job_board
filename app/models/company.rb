@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
   belongs_to :user 
+  has_many :jobs
 
   after_create_commit { broadcast_append_to "companies" }
   after_commit :add_default_logo

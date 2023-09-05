@@ -1,2 +1,6 @@
-<h1>Job#edit</h1>
-<p>Find me in app/views/job/edit.html.erb</p>
+<h1> Edit <%= @job.name %> </h1>
+
+<div class='col-md-6'>
+  <%= render 'form' %>
+</div>
+<%= link_to "Delete", destroy_job_path(id: @job.id), class:'btn mt-3', style:'background-color: red; color:white', data:{turbo_method: :delete, turbo_confirm: "Delete?"} %>

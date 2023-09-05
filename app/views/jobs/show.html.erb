@@ -4,20 +4,35 @@
       <h2> <%= image_tag(@company.logo, class:'circle-photo') if @company.logo.present?%> </h2>
       <h2> <%= @company.name %> </h2>
     </div>
-    <div class="card-body ">
+    <div class="card-body row">
       <h4> <%= @job.name %> </h4>
-      <p> <h6> Description: </h6> <%= @job.description %> </p> 
-      <p> <h6> Required_experience: </h6> <%= @job.required_experience %> </p> 
-      <p> <h6> Salary: ± </h6> <%= @job.salary %> </p> 
+      <div class='col-md-3'>
+        <p> Description:  </p>
+      </div>
+      <div class='col-md-9'>
+        <p> <%= @job.description %> </p>
+      </div>
+      <div class='col-md-3'>
+        <p> Required_Experience: </p> 
+      </div>
+      <div class='col-md-9'>
+        <p> <%= @job.required_experience %> </p>
+      </div>
+      <div class='col-md-3'>
+        <p> Salary:  </p>
+      </div>
+      <div class='col-md-9'>
+        <p> <%= number_to_currency(@job.salary, :unit=>'R', :separator=>',', :delimiter =>' ') %> </p>
+      </div>
     </div>
     <div class="card-footer text-muted d-flex justify-content-center">
     <% if @company.user_id == Current.user.id %>
-      <%= link_to "Edit Job Account", edit_job_path(id: @job.id), class:'btn btn-dark' %>
+      <%= link_to "Edit Job", edit_job_path(id: @job.id), class:'btn btn-dark' %>
     <% else %>
       <%= link_to "Apply", '#', class:'btn btn-primary' %>
     <% end %>
     </div>
+
   </div>
 </div>
-
 

@@ -1,0 +1,39 @@
+<% if @jobs_list.present? %>
+  <div id="car" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#car" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+      <% @jobs_list.each do |j| %>
+        <% if @jobs_list.index(j) != 0 %>
+          <button type="button" data-bs-target="#car" data-bs-slide-to="<%= @jobs_list.index(j) %>" aria-label="Slide <%= @jobs_list.index(j) %>" id="<%= @jobs_list.index(j) %>"></button>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="carousel-inner">
+
+      <div class="carousel-item active" data-bs-interval="10000">
+        <%= image_tag(@jobs_list.first.photo, class:'small-circle-photo') if @jobs_list.first.photo.present? %>
+        <div class="carousel-caption d-none d-md-block">
+          <%= @jobs_list.first.name %>
+        </div>
+      </div>
+
+      <% @jobs_list.each do |job| %>
+        <div class="carousel-item" data-bs-interval="20000">
+          <%= image_tag(job.photo, class:'small-circle-photo') if job.photo.present? %>
+          <div class="carousel-caption d-none d-md-block">
+            <%= job.name %>
+          </div>
+        </div>
+      <% end %>
+      
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#car" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#car" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<% end %>

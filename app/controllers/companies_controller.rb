@@ -41,6 +41,9 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    @jobs_list = @company.jobs
+    # @first_job = @company.jobs.first
+    console
   end
 
   def list

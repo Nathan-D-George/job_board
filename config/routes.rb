@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :profiles, except: [:new, :edit, :show, :destroy]
+  get   '/profiles/new',     to: 'profiles#new',    as: 'new_profile'
+  post  '/profiles/create',  to: 'profiles#create', as: 'create_profile'
+  get   '/profiles/edit',    to: 'profiles#edit',   as: 'edit_profile'
+  patch '/profiles/update',  to: 'profiles#update', as: 'update_profile'
+
   resources :jobs, except: [:new, :edit, :show, :destroy]
   get    '/job/new',     to: 'jobs#new',     as: 'new_job'
   post   '/job/create',  to: 'jobs#create',  as: 'create_job'
@@ -51,6 +57,7 @@ end
 
   Lord of my life
   Here is my heart
+  You will be saved
   Been so good
   Fear is not my future
   You really are

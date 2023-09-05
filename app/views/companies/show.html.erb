@@ -9,7 +9,7 @@
         <div class='col-md-6' style='text-align:right; padding-right: 67px'>
           <h5 class="card-title"> Name:      </h5>
           <h5 class="card-title"> Email:     </h5>
-          <h5 class="card-title"> Location: </h5>
+          <h5 class="card-title"> Location:  </h5>
           <h5 class="card-title"> Number Employees: </h5>
         </div>
         <div class='col-md-6'>
@@ -33,7 +33,11 @@
   </div>
 </div>
 <% if @company.user_id == Current.user.id %>
+<div>
   <%= link_to "Edit Company Account", edit_company_path(id: @company.id), class:'btn btn-dark' %>
   <%= link_to "Create Job Post", new_job_path(id: @company.id), class:'btn btn-secondary' %>
+</div>
 <% end %>
-
+<div style='padding-top: 150px'>
+  <%= render 'mini_job_list' %>
+</div>
