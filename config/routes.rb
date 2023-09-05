@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get    '/enlistments/list',    to: 'enlistments#list',    as: 'list_applications'
+  post   '/enlistments/create',  to: 'enlistments#create',  as: 'create_application'
+  delete '/enlistments/destroy', to: 'enlistments#destroy', as: 'destroy_application'
+
   resources :profiles, except: [:new, :edit, :show, :destroy]
   get   '/profiles/new',     to: 'profiles#new',    as: 'new_profile'
   post  '/profiles/create',  to: 'profiles#create', as: 'create_profile'

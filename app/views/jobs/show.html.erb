@@ -26,11 +26,15 @@
       </div>
     </div>
     <div class="card-footer text-muted d-flex justify-content-center">
-    <% if @company.user_id == Current.user.id %>
-      <%= link_to "Edit Job", edit_job_path(id: @job.id), class:'btn btn-dark' %>
-    <% else %>
-      <%= link_to "Apply", '#', class:'btn btn-primary' %>
-    <% end %>
+      <% if @company.user_id == Current.user.id %>
+        <%= link_to "Edit Job", edit_job_path(id: @job.id), class:'btn btn-dark' %>
+      <% else %>
+        <% if @enlistments.blank? %>
+          <%= link_to "Apply", create_application_path(job_id: @job.id), data:{turbo_method: :post}, class:'btn btn-primary' %>
+        <% else %>
+          <%= link_to "Remove Application", destroy_application_path(id: @enlistments.first.id), data:{turbo_method: :delete, turbo_confirm: "Un-Apply?"}, class:'btn', style:'background-color:red' %>
+        <% end %>
+      <% end %>
     </div>
 
   </div>

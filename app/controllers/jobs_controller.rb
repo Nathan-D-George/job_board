@@ -27,6 +27,8 @@ class JobsController < ApplicationController
   end
 
   def show
+    @enlistments = Enlistment.where(job_id: @job.id, user_id: Current.user.id).all
+    console
   end
 
   def list

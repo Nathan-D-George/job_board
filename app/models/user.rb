@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :companies
+  has_many :enlistments, dependent: :destroy 
   has_many :job, dependent: :destroy
 
   has_one :profile, dependent: :destroy

@@ -1,0 +1,7 @@
+<h3> You Applications </h3>
+
+<%= turbo_stream_from "enlistments" %>
+<div class='col-md-4' id='enlistments'>
+  <p> <h6> <%= @enlistments.count+1 %> applications </h6> </p>
+  <%= render @enlistments %>
+</div>
