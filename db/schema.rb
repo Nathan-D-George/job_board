@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_080654) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_120853) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_080654) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -57,6 +61,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_080654) do
     t.integer "status"
     t.index ["job_id"], name: "index_enlistments_on_job_id"
     t.index ["user_id"], name: "index_enlistments_on_user_id"
+  end
+
+  create_table "job_categories", force: :cascade do |t|
+    t.integer "job_id", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_job_categories_on_category_id"
+    t.index ["job_id"], name: "index_job_categories_on_job_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -91,6 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_080654) do
   add_foreign_key "companies", "users"
   add_foreign_key "enlistments", "jobs"
   add_foreign_key "enlistments", "users"
+  add_foreign_key "job_categories", "categories"
+  add_foreign_key "job_categories", "jobs"
   add_foreign_key "jobs", "companies"
   add_foreign_key "profiles", "users"
 end

@@ -1,6 +1,9 @@
 class Job < ApplicationRecord
   belongs_to :company
 
+  has_many :job_categories
+  has_many :categories, through: :job_categories
+
   validates :name, presence: true, length: {minimum: 5}
   validates :description, presence: true, length: {minimum: 20, maximum: 400}
   

@@ -7,7 +7,6 @@
       <div class='col-md-10'>
         <h5>    <%= Company.find(job.company_id).name %> </h5>
         <h6>    <%= job.name %> </h6>
-        <small> <%= job.required_experience %> </small>
         <small> <%= job.description.truncate(40) %> </small>
       </div>
     </div>

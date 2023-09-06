@@ -7,7 +7,9 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     $company_id = params[:id].to_i
-    @company = Company.find($company_id)
+    @company    = Company.find($company_id)
+    @categories = Category.all
+    console
   end
 
   def create

@@ -6,7 +6,7 @@ class EnlistmentsController < ApplicationController
     job        = Job.find(params[:job_id])
     company    = Company.find(job.company_id)
     enlistment = Enlistment.new(user_id: Current.user.id, job_id: params[:job_id].to_i)
-    enlistmet.enlistment_date = Date.today
+    enlistment.enlistment_date = Date.today
     enlistment.assign_name
     if enlistment.save
       flash[:notice] = "You've applied to #{company.name} for #{job.name}"
