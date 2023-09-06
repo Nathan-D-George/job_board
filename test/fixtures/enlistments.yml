@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  user: one
-  job: one
+  name: "this_user applied for this_job"
+  user_id: 1
+  job_id: 2
 
-two:
-  name: MyString
-  user: two
-  job: two
+# two:
+#   name: MyString
+#   user: two
+#   job: two

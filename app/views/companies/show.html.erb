@@ -33,11 +33,20 @@
   </div>
 </div>
 <% if @company.user_id == Current.user.id %>
-<div>
-  <%= link_to "Edit Company Account", edit_company_path(id: @company.id), class:'btn btn-dark' %>
-  <%= link_to "Create Job Post", new_job_path(id: @company.id), class:'btn btn-secondary' %>
-</div>
+  <div>
+    <%= link_to "Edit Company Account", edit_company_path(id: @company.id), class:'btn btn-dark' %>
+    <%= link_to "Create Job Post", new_job_path(id: @company.id), class:'btn btn-secondary' %>
+  </div>
+  <div style='padding-top: 80px'>
+    <% if @enlistments.present? %>
+      <h3 class='mt-2 mb-3'> Applications </h3>
+      <% @enlistments.each do |enlistment| %>
+        <p> <%= link_to enlistment.name, review_application_path(id: enlistment.id), style:'color: black; text-decoration: none' %> </p>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <div style='padding-top: 150px'>
+    <%= render 'mini_job_list' %>
+  </div>
 <% end %>
-<div style='padding-top: 150px'>
-  <%= render 'mini_job_list' %>
-</div>

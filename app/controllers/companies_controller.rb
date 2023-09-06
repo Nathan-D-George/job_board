@@ -41,9 +41,19 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @jobs_list = @company.jobs
-    # @first_job = @company.jobs.first
-    console
+    if Current.user.companies.present?
+      @enlistments = []
+      company      = Current.user.companies.first
+      jobs         = Job.where(company_id: company.id).all
+      jobs.each {|job|
+        enlistments = Enlistment.where(job_id: job.id).all  #if Enlistment.where(job_id: job.id).present?
+        enlistments.each{|enlistment|
+          @enlistments.append(enlistment)
+        }
+      } 
+    else
+      @jobs_list = @company.jobs
+    end
   end
 
   def list

@@ -4,6 +4,13 @@ class Enlistment < ApplicationRecord
 
   after_create_commit { broadcast_append_to "enlistments" }
 
+  enum status: %i[interview rejected pending]
+
+  # def initialize
+  #   broadcast_append_to "enlistments"
+  #   self.status = "pending"
+  # end
+
   def assign_name
     user = User.find(self.user_id)
     job  = Job.find(self.job_id)

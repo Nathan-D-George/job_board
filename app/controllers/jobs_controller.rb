@@ -28,12 +28,15 @@ class JobsController < ApplicationController
 
   def show
     @enlistments = Enlistment.where(job_id: @job.id, user_id: Current.user.id).all
-    console
   end
 
   def list
-    @jobs = Job.all.order(id: :desc)                if params[:id].blank?
-    @jobs = Jobs.where(company_id: params[:id]).all if params[:id].present?
+    if Current.user.companies.blank?
+      @jobs = Job.all.order(id: :desc) 
+    else
+      company = Current.user.companies.first
+      @jobs   = Job.where(company_id: company.id).all 
+    end
   end
 
   def edit

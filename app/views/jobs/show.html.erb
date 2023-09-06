@@ -28,6 +28,12 @@
     <div class="card-footer text-muted d-flex justify-content-center">
       <% if @company.user_id == Current.user.id %>
         <%= link_to "Edit Job", edit_job_path(id: @job.id), class:'btn btn-dark' %>
+        <% if @enlistments.present? %>
+          <%= turbo_stream_from "enlistments" %>
+          <div id="enlistments">
+            <%= render @enlistments %>
+          </div>
+        <% end %>
       <% else %>
         <% if @enlistments.blank? %>
           <%= link_to "Apply", create_application_path(job_id: @job.id), data:{turbo_method: :post}, class:'btn btn-primary' %>
