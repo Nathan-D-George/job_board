@@ -24,6 +24,16 @@
       <div class='col-md-9'>
         <p> <%= number_to_currency(@job.salary, :unit=>'R', :separator=>',', :delimiter =>' ') %> </p>
       </div>
+      <% if @categories.present? %>
+        <div class='col-md-3'>
+          Categories: 
+        </div>
+        <div class='col-md-9'>
+          <% @categories.each do |category| %>
+            <%= category.name %>;
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="card-footer text-muted d-flex justify-content-center">
       <% if @company.user_id == Current.user.id %>

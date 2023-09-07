@@ -85,6 +85,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def initialize_function
     @user = User.find(params[:id])
   end
@@ -92,4 +93,5 @@ class UsersController < ApplicationController
   def user_params
     params.require('user').permit(:name, :email, :password, :password_confirmation, :tertiary_education, :cover_letter) 
   end 
+  
 end

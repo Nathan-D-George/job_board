@@ -7,6 +7,10 @@
     <%= j.label :description %>
     <%= j.text_area :description, class:'form-control', style:'height: 250px' %>
   </div>
+  <div class='mt-2'>
+    <%= j.label :categories %>
+    <%= j.select :categories, @categories, {prompt: '(no category)'}, { multiple: true, size: 5, class: 'form-select' } %>
+  </div>
   <div class="mt-2">
     <%= j.label :Years_of_Experience %>
     <%= j.number_field :experience, in: 0..10, step: 1, class:'form-control'%>

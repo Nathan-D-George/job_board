@@ -1,6 +1,8 @@
 <div class='row'>
   <%= form_with model: @search, url: search_results_path, class:'col-md-8', method: :post, id: 'search_form' do |f| %>
-    <%= f.search_field :search_word, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
+    <%= f.search_field :name, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
+    <%= f.label :categories, class:'mt-2 mb-2' %>
+    <%= f.select :categories, @categories, {prompt: '(no category)'}, {multiple: true, size:4, class:'form-select'} %>
     <%= f.submit "Search", class:'btn btn-outline-dark mt-3' %>
   <% end %>
   <h4 class='mt-4 mb-4'> Search Results </h4>
@@ -14,10 +16,15 @@
   </div>
   <div class='col-md-1'></div>
   <div class=col-md-5>
-    <% if @companies.present? %>
-      <h5> Businesses </h5>
+    <% if @companies.present? || @jobs.present? %>
+      <h5> Businesses/Jobs </h5>
       <div id="search_results2">
-        <%= render "searches/company_results", companies: @companies %>
+        <% if @companies.present? %>
+          <%= render "searches/company_results", companies: @companies %>
+        <% end %>
+        <% if @jobs.present? %>
+          <%= render "searches/job_results", jobs: @jobs %>
+        <% end %>
       </div>
     <% end %>
   </div>
