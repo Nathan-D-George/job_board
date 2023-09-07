@@ -67,7 +67,7 @@ class JobsController < ApplicationController
     categories      = params[:job][:categories]
     if job.save
       categories.each{|category|
-        job_category = JobCategory.create(job_id: job.id, category_id: Category.where(name: category).first.id) if category.present?
+        JobCategory.create(job_id: job.id, category_id: Category.where(name: category).first.id) if JobCategory.where(job_id: job.id, category_id: category.id).blank?
       }
       flash[:notice] = "Job Post Updated"
       redirect_to show_job_path(id: job.id)

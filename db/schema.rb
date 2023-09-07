@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_120853) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_07_080723) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_120853) do
     t.string "website", default: "https://www.example.com"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_companies_on_user_id"
+  end
+
+  create_table "company_categories", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_company_categories_on_category_id"
+    t.index ["company_id"], name: "index_company_categories_on_company_id"
   end
 
   create_table "enlistments", force: :cascade do |t|
@@ -100,6 +109,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_120853) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "companies", "users"
+  add_foreign_key "company_categories", "categories"
+  add_foreign_key "company_categories", "companies"
   add_foreign_key "enlistments", "jobs"
   add_foreign_key "enlistments", "users"
   add_foreign_key "job_categories", "categories"

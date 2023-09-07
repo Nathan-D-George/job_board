@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   patch  '/job/update',  to: 'jobs#update',  as: 'update_job'
   delete '/job/destroy', to: 'jobs#destroy', as: 'destroy_job'
 
-  resources :companies, except: [:new, :edit, :show, :destroy]
+  resources :companies, except: [:new, :edit, :update, :show, :destroy]
   get    '/companies/new',      to: 'companies#new',                 as: 'new_company'
   post   '/companies/create',   to: 'companies#create',              as: 'create_company'
   get    '/companies/show',     to: 'companies#show',                as: 'show_company'

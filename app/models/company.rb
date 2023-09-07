@@ -2,14 +2,17 @@ class Company < ApplicationRecord
   belongs_to :user 
   has_many :jobs
 
+  has_many :company_categories
+  has_many :categories, through: :company_categories
+
   after_create_commit { broadcast_append_to "companies" }
   after_commit :add_default_logo
   has_one_attached :logo
 
   enum location: %i[Bloemfontein Cape_Town Pretoria Johannesburg Port_Elizabeth Kimberley Durban Potchefstroom]
 
-  validates :name, presence: true, length: {minimum: 3, maximum:40}
-  validates :description, presence: true, length: {minimum:10, maximum: 400}
+  validates :name, presence: true, length: {minimum: 3, maximum:50}
+  validates :description, presence: true, length: {minimum:10, maximum: 4000}
 
   def self.location_options
     locations = ['Bloemfontein','Cape_Town','Pretoria','Johannesburg','Port_Elizabeth', 'Kimberley','Durban','Potchefstroom']
@@ -27,5 +30,3 @@ class Company < ApplicationRecord
   end
 
 end
-
-# A company that works in engineering. We produces control systems for geysers, cars, house systems and more. Our teams is stocked with hardworking mechatronics, mechanical and electronic engineers.

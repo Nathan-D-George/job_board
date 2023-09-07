@@ -33,7 +33,7 @@ panel{
   min-height: 950px;
   padding-left: 20px;
   background-color: white;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 30px;
 }
 

@@ -10,9 +10,16 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <% if Current.user.present? %>
+      <style>
+        <%=".company-#{Current.user.id}"%>{
+          background-color: gainsboro;
+        }
+      </style>
+    <% end %>
   </head>
 
-  <body style='background-color: gainsboro'>
+  <body style='background-color: gainsboro; padding-bottom: 90px'>
     <%= render 'layouts/navbar' %>
     <% if request.fullpath.split('/').blank? %>
     

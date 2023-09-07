@@ -27,18 +27,25 @@ class SearchesController < ApplicationController
   def results
     if params[:user][:name].present?
       users_results   = User.where("name LIKE ?",    "%#{params[:user][:name]}%").all
-      company_results = Company.where("name LIKE ?", "%#{params[:user][:name]}%").all
+      company_initial_results = Company.where("name LIKE ?", "%#{params[:user][:name]}%").all
 
       category_names      = params[:user][:categories]
       job_initial_results = Job.where("name LIKE ?", "%#{params[:user][:name]}%").all
       job_final_results   = []
-        if category_names.length > 1
-          job_initial_results.each {|job|
+      if category_names.length > 1
+        job_initial_results.each {|job|
           category_names.each{|category_name|
             job_final_results.append(job) if job.categories.include?(Category.where(name: category_name).first)
           }
         }
+        company_results = []
+        company_initial_results.each{|company|
+          category_names.each{|category_name|
+            company_results.append(company) if company.categories.include?(Category.where(name: category_name).first)
+          }
+        }
       else
+        company_results = company_initial_results
         job_final_results = job_initial_results
       end
     else

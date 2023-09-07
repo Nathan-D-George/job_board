@@ -2,5 +2,9 @@
 
 <%= turbo_stream_from "jobs" %>
 <div id="jobs">
-  <%= render @jobs %>
+  <% if @jobs.blank? %>
+    <p> No Job Posts from your Company </p>
+  <% else %>
+    <%= render @jobs %>
+  <% end %>
 </div>

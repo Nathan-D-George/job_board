@@ -1,20 +1,36 @@
 class CompaniesController < ApplicationController
-  before_action :logged_in_only, except: [:new, :create, :new_company_user, :create_company_user]
-  before_action :initialize_function, only: [:edit, :show,   :delete]
+  before_action :logged_in_only, except: [:new, :new_company_user, :create_company_user]
+  before_action :initialize_function, only: [:edit, :update, :delete, :show]
   before_action :company_admin_only,  only: [:edit, :update, :delete]
   $company_id = nil  
 
   def new
     @company = Company.new
+    @categories = []
+    categories  = Category.all.order(name: :asc)
+    categories.each {|category|
+      @categories.append(category.name)
+    }
   end
 
-  def create
-    company = Company.new(company_params)
+  def create 
+    company = Company.new   
+    company.name        = params[:company][:name]
+    company.website     = params[:company][:website]
+    company.description = params[:company][:description]
+    company.logo        = params[:company][:logo]
+    company.location    = params[:company][:location]
+    company.number_employees = params[:company][:number_employees]
     company.user_id = Current.user.id
+    categories      = params[:company][:categories]
     if company.save
+      categories.each{|category|
+        CompanyCategory.create(company_id: company.id, category_id: Category.where(name: category).first.id) if category.present?
+      }
       flash[:notice] = "Successfully Registered #{company.name}"      
       redirect_to root_path
     else
+      debugger
       flash[:alert]  = "Something went wrong."
       render :new
     end
@@ -53,7 +69,10 @@ class CompaniesController < ApplicationController
       } 
     else
       @jobs_list = @company.jobs
+      
     end
+    @categories = company.categories
+    console
   end
 
   def list
@@ -63,11 +82,30 @@ class CompaniesController < ApplicationController
   def edit
     redirect_to show_company_path(id: @company.id), alert: "Company Admin Only" if @company.user_id != Current.user.id
     $company_id = params[:id].to_i
+    @categories = []
+    categories  = Category.all.order(name: :asc)
+    categories.each{|category|
+      @categories.append(category.name)
+    }
   end
 
   def update
-    company = Company.find($company_id)
-    if company.update(company_params)
+    company             = Company.find($company_id)
+    company.name        = params[:company][:name]
+    company.website     = params[:company][:website]
+    company.description = params[:company][:description]
+    company.logo        = params[:company][:logo] if params[:company][:logo].present?
+    company.location    = params[:company][:location]
+    company.number_employees = params[:company][:number_employees]
+    categories = params[:company][:categories]
+    if company.save
+      if categories.length > 1
+        categories.each {|category|
+          if category.present?
+            CompanyCategory.create(company_id: company.id, category_id: Category.where(name: category).first.id) if CompanyCategory.where(company_id: company.id, category_id: Category.where(name: category).first.id).blank?
+          end
+        }
+      end
       flash[:notice] = 'Updated Company Information'
       redirect_to show_company_path(id: company.id)
     else
@@ -88,7 +126,7 @@ class CompaniesController < ApplicationController
   private
 
   def company_params
-    params.require('company').permit(:name, :website, :description, :logo, :location, :number_employees)
+    #params.require('company').permit(:name, :website, :description, :logo, :location, :number_employees)
   end
 
   def initialize_function
@@ -96,7 +134,7 @@ class CompaniesController < ApplicationController
   end
 
   def company_admin_only
-    redirect_to show_company_path(id: @company.id), alert: 'Only the Company Admin can Work Here' if @company.user_id == Current.user.id
+    redirect_to show_company_path(id: @company.id), alert: 'Only the Company Admin can Work Here' if @company.user_id != Current.user.id
   end
 
 end

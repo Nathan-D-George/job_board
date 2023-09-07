@@ -1,44 +1,52 @@
-<%= form_with model: @company, url: companies_path, local: true do |f| %>
+<%= form_with model: @company, local: true do |f| %> 
   <div class='mt-4'>
     <%= f.label :Company_name %>
     <%= f.text_field :name, class:'form-control mt-2', placeholder: 'Company Name' %>
   </div>
-  <div class='mt-2'>
+  <div class='mt-3'>
     <%= f.label :website %>
     <%= f.text_field :website, class:'form-control' %>
   </div>
-  <div class='mt-2'>
+  <div class='mt-3'>
     <%= f.label :description %>
     <%= f.text_area :description, class:'form-control mt-2', placeholder:'Describe your company', style:'height: 175px' %>
+    <small> <small> <small> <%= f.label :max_4000_characters %> </small> </small> </small>
   </div>
-  <div class='mt-2'>
+  <div class='mt-3'>
+    <%= f.label :categories %>
+    <%= f.select :categories, Category.list_options, {prompt: '(no category)'}, {multiple: true, size: 4, class:'form-select'} %>
+  </div> 
+  <div class='mt-3'>
     <%= f.label :logo %>
     <%= f.file_field :logo, class:'form-control', accept:'image/png, image/jpg, image/jpeg, image/avif' %> 
   </div>
-  <div class='mt-2'>
+  <div class='mt-3'>
     <%= f.label :location %>
     <%= f.select :location, Company.location_options, {}, {class:'form-select mt-2'} %>    
   </div>
-  <div class='mt-2'>
+  <div class='mt-3'>
     <%= f.label :Number_of_Employees %>
     <%= f.number_field :number_employees, in: 2..500, step: 4, class:'form-control' %>
   </div>
-  <% if @company.new_record? %>
-    <div class='checkboxx mt-4'>
-      <input type='checkbox' id='confirm-box'>
-      <label for='confirm-box'>
-        <p>
-          I confirm that the information lsited above is accurate. Deliberate misinformation will be dealt with harshly
-          by management to the full extent of the LAW <small><small><small style='color:lightgray'>(of the company)</small></small></small>
-        </p>
-      </label>
-      <div class='checkbox-button mt-2'>
-        <%= f.submit "Register Company", class:'btn', style:'background-color: gainsboro' %>
+  <% if @company.present? %>
+    <% if @company.new_record? %>
+      <div class='checkboxx mt-4'>
+        <input type='checkbox' id='confirm-box'>
+        <label for='confirm-box'>
+          <p>
+            I confirm that the information lsited above is accurate. Deliberate misinformation will be dealt with harshly
+            by management to the full extent of the LAW <small><small><small style='color:lightgray'>(of the company)</small></small></small>
+          </p>
+        </label>
+        <div class='checkbox-button mt-2' style='padding-bottom: 40px'>
+          <%= f.submit "Register Company",  class:'btn', style:'background-color: gainsboro' %>
+        </div>
       </div>
-    </div>
-  <% else %>  
-    <div class='mt-2'>
-      <%= f.submit "Update Company", class:'btn', style:'background-color: gainsboro' %>
-    </div>
+    <% else %>  
+      <div class='mt-2 mt-4' style='padding-bottom: 40px'>
+        <%= f.submit "Update Company", class:'btn', style:'background-color: gainsboro' %>
+      </div>
+    <% end %>
   <% end %>
+
 <% end %>
