@@ -27,6 +27,9 @@ class CompaniesController < ApplicationController
       categories.each{|category|
         CompanyCategory.create(company_id: company.id, category_id: Category.where(name: category).first.id) if category.present?
       }
+      notification = Notification.new
+      notification.new_company_notification(company.name)
+      notification.save
       flash[:notice] = "Successfully Registered #{company.name}"      
       redirect_to root_path
     else

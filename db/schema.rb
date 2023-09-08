@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_07_080723) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_08_090740) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -88,6 +88,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_080723) do
     t.index ["company_id"], name: "index_jobs_on_company_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "name"
+    t.integer "kind", default: 0
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "qualification"
@@ -96,6 +101,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_080723) do
     t.date "start_date"
     t.date "end_date"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "user_categories", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_user_categories_on_category_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -117,4 +129,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_080723) do
   add_foreign_key "job_categories", "jobs"
   add_foreign_key "jobs", "companies"
   add_foreign_key "profiles", "users"
+  add_foreign_key "user_categories", "categories"
+  add_foreign_key "user_categories", "users"
 end

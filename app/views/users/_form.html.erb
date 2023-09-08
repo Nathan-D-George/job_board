@@ -29,6 +29,10 @@
     <%= u.select :tertiary_education, ["no", "studying", "completed"], {}, {class:'form-select'} %>
   </p>
   <p>
+    <%= u.label  :Job_Types_Youre_Interested_In %>
+    <%= u.select :categories, Category.list_options, {prompt: '(no category)'}, {multiple: true, size: 3, class:'form-select'} %> 
+  </p>
+  <p>
     <%= u.label :cover_letter %>
     <%= u.text_area :cover_letter, class:'form-control', style:'height:200px' %>
   </p>

@@ -3,9 +3,13 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :companies
+
   has_many :enlistments, dependent: :destroy 
   has_many :job, dependent: :destroy
 
+  has_many :user_categories
+  has_many :categories, through: :user_categories
+  
   has_one :profile, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 4, maximum: 30}

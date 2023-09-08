@@ -13,7 +13,6 @@ class JobsController < ApplicationController
     categories.each{ |category|
       @categories.append(category.name)
     }
-    console
   end
 
   def create
@@ -28,6 +27,9 @@ class JobsController < ApplicationController
       categories.each_with_index{|category, index|
         job_category  = JobCategory.create(job_id: job.id, category_id: Category.where(name: category).first.id) if category.present?
       }
+      notification   = Notification.new
+      notification.new_job_notification(job.name, Company.find(job.company_id))
+      notification.save
       flash[:notice] = 'Job Post Created'
       redirect_to list_jobs_path
     else
@@ -67,8 +69,13 @@ class JobsController < ApplicationController
     categories      = params[:job][:categories]
     if job.save
       categories.each{|category|
-        JobCategory.create(job_id: job.id, category_id: Category.where(name: category).first.id) if JobCategory.where(job_id: job.id, category_id: category.id).blank?
+        if category.present?
+          JobCategory.create(job_id: job.id, category_id: Category.where(name: category).first.id) if JobCategory.where(job_id: job.id, category_id: category.id).blank?
+        end
       }
+      notification = Notification.new
+      notification.update_job_notification(job.name, Company.find(job.company_id).name)
+      notification.save
       flash[:notice] = "Job Post Updated"
       redirect_to show_job_path(id: job.id)
     else  

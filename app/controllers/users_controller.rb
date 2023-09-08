@@ -15,9 +15,18 @@ class UsersController < ApplicationController
     user.password = params[:user][:password]
     user.password_confirmation = params[:user][:password_confirmation]
     user.tertiary_education    = params[:user][:tertiary_education]
-    user.cover_letter          = params[:user][:cover_letter]
+    user.cover_letter          = params[:user][:cover_letter] 
+    categories                 = params[:user][:categories]
     if user.save
-      flash[:notice] = "Account created. Welcome #{user.name}!"
+      notification = Notification.new
+      notification.new_user_notification(user.name)
+      notification.save
+      categories.each{|category|
+        if category.present?
+          UserCategory.create(user_id: user.id, category_id: Category.where(name: category).first.id)
+        end
+      }
+      flash[:notice]    = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id
       redirect_to new_profile_path
     else
@@ -43,8 +52,14 @@ class UsersController < ApplicationController
     user.photo = params[:user][:photo] if params[:user][:photo].present?
     user.tertiary_education = params[:user][:tertiary_education]
     user.cover_letter       = params[:user][:cover_letter]
+    categories              = params[:user][:categories]
     if user.save
       flash[:notice] = 'Account successfully updated'
+      categories.each{|category|
+        if category.present?
+          UserCategory.create(user_id: user.id, category_id: Category.where(name: category).first.id)
+        end
+      }
     else
       flash[:alert]  = 'Something went wrong'
     end

@@ -21,11 +21,10 @@
 
   <body style='background-color: gainsboro; padding-bottom: 90px'>
     <%= render 'layouts/navbar' %>
-    <% if request.fullpath.split('/').blank? %>
-    
+    <% if request.fullpath.split('/').blank? %>    
       <div class='d-flex justify-content-center' style='background-color: white'>
         <div class='col-md-4'>
-        <%= render 'layouts/flash'  %>
+          <%= render 'layouts/flash'  %>
           <%= yield %>
         </div>
       </div>

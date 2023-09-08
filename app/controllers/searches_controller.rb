@@ -3,16 +3,16 @@ class SearchesController < ApplicationController
   
   def search
     @search = User.new
-    @search.name = params[:results][:name]        if params[:results].present? && params[:results][:name].present?
-    users   = params[:results][:user_ids]         if params[:results].present? && params[:results][:user_ids].present?
+    @search.name = params[:results][:name]      if params[:results].present? && params[:results][:name].present?
+    users   = params[:results][:user_ids]       if params[:results].present? && params[:results][:user_ids].present?
     @users  = []
     users.each {|user| @users.append(User.find(user.to_i)) if User.find(user.to_i).companies.blank?} if users.present? 
 
-    companies  = params[:results][:company_ids]   if params[:results].present? && params[:results][:company_ids].present?
+    companies  = params[:results][:company_ids] if params[:results].present? && params[:results][:company_ids].present?
     @companies = []
     companies.each {|company| @companies.append(Company.find(company.to_i))} if companies.present?
     
-    jobs  = params[:results][:job_ids]            if params[:results].present? && params[:results][:job_ids].present?
+    jobs  = params[:results][:job_ids]          if params[:results].present? && params[:results][:job_ids].present?
     @jobs = []
     jobs.each{|job| @jobs.append(Job.find(job.to_i))} if jobs.present?
 
@@ -21,7 +21,6 @@ class SearchesController < ApplicationController
     categories.each {|category|
       @categories.append(category.name) if category.name
     }
-    console
   end
 
   def results
@@ -63,4 +62,5 @@ class SearchesController < ApplicationController
 
     redirect_to search_path(results: {user_ids: users_ids, company_ids: company_ids, job_ids: job_ids, name: params[:user][:name]})
   end
+
 end

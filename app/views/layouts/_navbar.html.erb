@@ -12,7 +12,14 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to "Companies", list_companies_path, class:'nav-link active' %>
+          <%= link_to list_companies_path, class:'nav-link active' do %>
+            <%= fa_icon 'superpowers' %> Companies
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to list_notifications_path, class:'nav-link active' do %>
+            <%= fa_icon 'bell-o' %> Notifications
+          <% end %>
         </li>
         <li class="nav-item">
           <%= link_to about_path, class:'nav-link active' do %>

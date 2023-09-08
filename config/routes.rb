@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+    
+  get '/notifications/list', to: 'notifications#list', as: 'list_notifications'
+
   get    '/enlistments/list',    to: 'enlistments#list',    as: 'list_applications'
   post   '/enlistments/create',  to: 'enlistments#create',  as: 'create_application'
   delete '/enlistments/destroy', to: 'enlistments#destroy', as: 'destroy_application'
