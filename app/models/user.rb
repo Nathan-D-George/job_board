@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :companies
+  has_many :friendships
 
   has_many :enlistments, dependent: :destroy 
   has_many :job, dependent: :destroy
@@ -40,6 +41,10 @@ class User < ApplicationRecord
 
   def photo_thumbnail
     photo.variant(resize_to_limit: [400, 400]).processed
+  end
+
+  def already_friends_with?(id)
+    Friendship.where(user_id: self.id, friend_id: id).present?
   end
 
   private 

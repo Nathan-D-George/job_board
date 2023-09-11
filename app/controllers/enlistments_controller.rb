@@ -32,6 +32,7 @@ class EnlistmentsController < ApplicationController
     @enlistment = Enlistment.find(params[:id])
     @applicant  = User.find(@enlistment.user_id)
     @job        = Job.find(@enlistment.job_id)
+    @company    = Company.find(@job.company_id)
   end
 
   def invite

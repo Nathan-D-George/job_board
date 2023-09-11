@@ -39,6 +39,11 @@ class UsersController < ApplicationController
     @photo = "https://images.unsplash.com/photo-1619472376731-3ca648a34b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
     @profile = @user.profile if @user.companies.blank?
     redirect_to show_company_path(id: @user.companies.first.id) if @user.companies.present?
+    if Current.user.already_friends_with?(@user.id)
+      @friendship = Friendship.where(user_id: Current.user.id, friend_id: @user.id).first
+    else
+      @friendship = Friendship.new
+    end
   end
 
   def edit

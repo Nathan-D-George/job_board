@@ -16,12 +16,20 @@
         <p style="text-align: justify"> <%= @applicant.cover_letter %> </p>
       </div>
       <% if @enlistment.status != "interview" && @enlistment.status != "rejected" %>
-        <%= link_to "Invite For Interview", invite_for_interview_path(id: @enlistment.id), data:{turbo_method: :post, turbo_confirm: "Invite #{@applicant.name} for interview"}, class:'btn btn-success mt-4 mb-4' %>
+        <%= link_to "Invite For Interview", invite_for_interview_path(id: @enlistment.id), data:{turbo_method: :post, turbo_confirm: "Invite #{@applicant.name} for interview"}, class:'btn btn-success mt-4' %>
         <div class='col-md-4 '></div>
         <%= link_to "Reject application", reject_applicant_path(id: @enlistment.id), data:{turbo_method: :post, turbo_confirm: "Reject #{@applicant.name}"}, class:'btn col-4 mt-4', style:'background-color: red;' %>
       <% else %>
-        <%= link_to(@enlistment.status == "interview" ? "Already Invited for Interview" : "Already Rejected", reconsider_applicant_path(id: @enlistment.id), data:{turbo_method: :post, turbo_confirm: "Set this status to pending"}, class:'btn btn-secondary') %>
+        <% if @enlistment.status == "interview" %>
+          <p style='color: green'> Invited <%= @applicant.name %> for Interview </p>
+        <% elsif @enlistment.status == "rejected" %>
+          <p style='color: red'> Rejected <%= @applicant.name %> for position </p>
+        <% end %>
+        <%= link_to "Reconsider", reconsider_applicant_path(id: @enlistment.id), data:{turbo_method: :post, turbo_confirm: "Set this status to pending"}, class:'btn btn-dark' %>
       <% end %>
+      <p class='text-center'>
+        <%= link_to "Cancel", show_company_path(id: @company.id), class:"btn btn-secondary mt-4 col-md-2" %>
+      </p>
     </div>
   </div>
 </div>

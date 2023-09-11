@@ -33,11 +33,16 @@
         </div>
         <div class='col-md-5'>
           <h5 class="card-title"> <%= @company.description  %> </h5>
-        </div>      
+        </div>
       </div>
     </div>
   </div>
 </div>
+<% if @friendship.new_record? %>
+  <%= link_to "Follow Company", follow_path(id: @company.user_id), class:'btn btn-primary', data:{turbo_method: :post} %>
+<% else %>
+  <%= link_to "Unfollow Company", unfollow_path(id: @company.user_id), class:'btn', style:'background-color: red; color:black', data:{turbo_method: :delete, turbo_confirm: "Unfollow?"} %>
+<% end %>
 <% if @company.user_id == Current.user.id %>
   <div>
     <%= link_to "Edit Company Account", edit_company_path(id: @company.id), class:'btn btn-dark' %>
@@ -47,7 +52,16 @@
     <% if @enlistments.present? %>
       <h3 class='mt-2 mb-3'> Applications </h3>
       <% @enlistments.each do |enlistment| %>
-        <p> <%= link_to enlistment.name, review_application_path(id: enlistment.id), style:'color: black; text-decoration: none' %> </p>
+        <p> 
+          <% if enlistment.status == "interview" %>
+            <%= fa_icon "check" %> &nbsp
+          <% elsif enlistment.status == "rejected" %>
+            <%= fa_icon "times" %> &nbsp
+          <% else %>
+            <%= fa_icon "square-o" %> &nbsp
+          <% end %>
+          <%= link_to enlistment.name, review_application_path(id: enlistment.id), style:'color: black; text-decoration: none' %>
+        </p>
       <% end %>
     <% end %>
   </div>

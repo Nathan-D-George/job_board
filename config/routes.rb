@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post   '/friendships/create', to: 'friendships#create', as: 'follow'
+  delete '/friendships/delete', to: 'friendships#delete', as: 'unfollow'
     
   get '/notifications/list', to: 'notifications#list', as: 'list_notifications'
 

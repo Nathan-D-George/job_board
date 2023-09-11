@@ -62,20 +62,23 @@ class CompaniesController < ApplicationController
   def show
     if Current.user.companies.present?
       @enlistments = []
-      company      = Current.user.companies.first
-      jobs         = Job.where(company_id: company.id).all
+      # company      = Current.user.companies.first
+      jobs         = Job.where(company_id: @company.id).all
       jobs.each {|job|
         enlistments = Enlistment.where(job_id: job.id).all  #if Enlistment.where(job_id: job.id).present?
         enlistments.each{|enlistment|
           @enlistments.append(enlistment)
         }
-      } 
+      }
     else
-      @jobs_list = @company.jobs
-      
+      @jobs_list  = @company.jobs
+      if Current.user.already_friends_with?(@company.user_id)
+        @friendship = Friendship.where(user_id: Current.user.id, friend_id: @company.user_id).first
+      else
+        @friendship = Friendship.new
+      end
     end
-    @categories = company.categories
-    console
+    @categories = @company.categories
   end
 
   def list
