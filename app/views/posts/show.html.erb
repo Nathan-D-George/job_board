@@ -1,0 +1,19 @@
+<div class='col-md-6' style='padding-left:30px'>
+  <h1> <%= @post.title %> </h1>
+
+  <% if @post.body.present? %>
+    <p> <strong> Body: </strong> </p>
+    <p class='col-md-6' style='text-align: justify'> <%= @post.body %> </p>
+  <% end %>
+  <% if @post.image.present? %>
+    <p> <strong> Image: </strong> </p> 
+    <%= image_tag(@post.image, style:'height:350px; width:350px') %>
+  <% end %>
+  <% if Current.user.id == @poster.id %>
+    <p> <%= link_to "Delete", destroy_post_path(id: @post.id), class:'btn btn-danger mt-4 col-md-2', data:{turbo_method: :delete, turbo_confirm: "Delete Post?"} %> </p>
+  <% end %>
+  <p>
+    <%= link_to "Back", show_user_path(id: @poster.id), class:'btn btn-secondary mt-2 col-md-2' %>
+  </p>
+
+</div>

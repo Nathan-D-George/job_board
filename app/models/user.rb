@@ -2,8 +2,10 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_many :companies
-  has_many :friendships
+  has_many  :companies
+  has_many :friendships, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   has_many :enlistments, dependent: :destroy 
   has_many :job, dependent: :destroy
@@ -45,6 +47,10 @@ class User < ApplicationRecord
 
   def already_friends_with?(id)
     Friendship.where(user_id: self.id, friend_id: id).present?
+  end
+
+  def already_liked?(id)
+    Like.where(user_id: self.id, post_id: id).present?
   end
 
   private 

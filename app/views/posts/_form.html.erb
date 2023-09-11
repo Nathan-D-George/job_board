@@ -1,0 +1,20 @@
+
+<%= form_with model: @post, local: true do |f| %>
+  <p>
+    <small style='color:red'><small> * </small> </small>
+    <%= f.label :title %>
+    <%= f.text_field :title, class:'form-control mt-2' %>
+  </p>
+  <p>
+    <%= f.label :post_body %> 
+    <%= f.text_area :body, class:'form-control mt-2', style:'height: 200px' %>
+  </p>
+  <p>
+    <%= f.label :image %>
+    <%= f.file_field :image, class:'form-control mt-2', accept:'image/png, image/jpg, image/jpeg, image/avif' %> 
+  </p>
+  <p>
+    <%= f.submit(@post.new_record? ? "Post This" : "Update Post", class:'btn btn-primary mt-2')%>
+  </p>
+  
+<% end %> 
