@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :comments, except: [:new, :edit, :show, :destroy]
+  post   '/comments/create',  to: 'comments#create',  as: 'create_comment'
+  get    '/comments/edit',    to: 'comments#edit',    as: 'edit_comment'
+  get    '/comments/list',    to: 'comments#list',    as: 'list_comments'
+  patch  '/comments/update',  to: 'comments#update',  as: 'update_comment'
+  delete '/comments/destroy', to: 'comments#destroy', as: 'destroy_comment'
+
   post   '/likes/create',  to: 'likes#create',  as: 'like'
   delete '/likes/destroy', to: 'likes#destroy', as: 'unlike'
   
@@ -17,12 +24,12 @@ Rails.application.routes.draw do
   get '/notifications/list', to: 'notifications#list', as: 'list_notifications'
 
   get    '/enlistments/list',    to: 'enlistments#list',    as: 'list_applications'  
-  post   '/enlistments/create',  to: 'enlistments#create',  as: 'create_application' 
+  post   '/enlistments/create',  to: 'enlistments#create',  as: 'create_application'  
   delete '/enlistments/destroy', to: 'enlistments#destroy', as: 'destroy_application'  
-  get    '/enlistments/review',  to: 'enlistments#review',  as: 'review_application'  
+  get    '/enlistments/review',  to: 'enlistments#review',  as: 'review_application'   
   post   '/enlistments/invite',  to: 'enlistments#invite',  as: 'invite_for_interview'
   post   '/enlistments/reject',  to: 'enlistments#reject',  as: 'reject_applicant'
-  post   '/enlistments/reconsider' , to: 'enlistments#reconsider', as: 'reconsider_applicant'
+  post   '/enlistments/reconsider' , to: 'enlistments#reconsider', as: 'reconsider_applicant' 
 
   resources :profiles, except: [:new, :edit, :show, :destroy]
   get   '/profiles/new',     to: 'profiles#new',    as: 'new_profile'

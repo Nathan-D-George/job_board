@@ -1,34 +1,35 @@
 <h1> Posts </h1>
-
-<% @posts.each do |post| %>
-  <div class='row mb-3'>
-    <div class='col-md-4'></div>
-    <div class="card col-md-4">
-      <%= image_tag(post.image, style:'height:450px; padding-top:10px') if post.image.present? %>
-      <div class="card-body">
-        <h5 class="card-title"> <%= post.title %> <small> <small> ~ <%= User.find(post.user_id).name %> </small> </small> </h5>
-        <p class="card-text" style='text-align: justify'> <%= post.body if post.body.present?%> </p>
-      </div>
-      <hr>
-      <p style='padding-left:20px'>
-        <% if Current.user.already_liked?(post.id) %>
-          <%= link_to unlike_path(id: post.id), data:{turbo_method: :delete}, style:'text-decoration: none; color: black' do %>
-            <%= fa_icon 'heart', style:'color:red' %> 
-          <% end%>
-        <% else %>
-          <%= link_to   like_path(id: post.id), data:{turbo_method: :post}, style:'text-decoration: none; color: black' do %>
-            <%= fa_icon 'heart-o' %>
+<div id="posts" data-controller="scroll">
+  <% @posts.each do |post| %>
+    <div class='row mb-3'>
+      <div class='col-md-4'></div>
+      <div class="card col-md-4">
+        <%= image_tag(post.image, style:'height:450px; padding-top:10px') if post.image.present? %>
+        <div class="card-body">
+          <h5 class="card-title"> <%= post.title %> <small> <small> ~ <%= User.find(post.user_id).name %> </small> </small> </h5>
+          <p class="card-text" style='text-align: justify'> <%= post.body if post.body.present?%> </p>
+        </div>
+        <hr>
+        <p style='padding-left:20px'>
+          <% if Current.user.already_liked?(post.id) %>
+            <%= link_to unlike_path(id: post.id), data:{turbo_method: :delete}, style:'text-decoration: none; color: black' do %>
+              <%= fa_icon 'heart', style:'color:red' %> 
+            <% end%>
+          <% else %>
+            <%= link_to like_path(id: post.id), data:{turbo_method: :post}, style:'text-decoration: none; color: black' do %>
+              <%= fa_icon 'heart-o' %>
+            <% end %>
           <% end %>
-        <% end %>
-        &nbsp &nbsp 
-        <%= link_to "#", style:'text-decoration: none; color: black' do %>
-          <%= fa_icon 'comment-o' %> 
-        <% end %>
-        &nbsp &nbsp 
-        <%= link_to "#", style:'text-decoration: none; color: black' do %>
-          <%= fa_icon 'share' %>
-        <% end %>
-      </p>
+          &nbsp &nbsp 
+          <%= link_to list_comments_path(id: post.id), style:'text-decoration: none; color: black' do %>
+            <%= fa_icon 'comment-o' %> 
+          <% end %>
+          &nbsp &nbsp 
+          <%= link_to "#", style:'text-decoration: none; color: black' do %>
+            <%= fa_icon 'share' %>
+          <% end %>
+        </p>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

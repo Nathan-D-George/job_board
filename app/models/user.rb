@@ -8,7 +8,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   has_many :enlistments, dependent: :destroy 
-  has_many :job, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_many :user_categories
   has_many :categories, through: :user_categories

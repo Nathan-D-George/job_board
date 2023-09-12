@@ -1,0 +1,21 @@
+<h1> Comments </h1>
+<%= @post.title.truncate(40) %> <small> ~ &nbsp <%= User.find(@post.user_id).name %> </small>
+
+<%= turbo_stream_from "comments" %>
+<div class="commentss" id="comments" data-aos='fade-right' data-aos-duration='2300' style='width: 700px; padding-bottom:20px;'>
+  <div class="commentss-top" style='width: 700px;'>
+    <% if @comments.present? %>
+      <% @comments.each do |c| %> 
+        <div class="comment-box cbox-<%= c.user_id %>"> 
+          <%= c.content %> 
+        </div> 
+      <% end %> 
+    <% else %>
+      <div> Be the First to Comment </div>
+    <% end%>
+  </div> 
+  <div class="commentss-bottom"> 
+    <p> <%= render 'new_comment_form' %> </p> 
+  </div> 
+</div> 
+ 
