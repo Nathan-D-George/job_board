@@ -22,6 +22,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem 'mini_magick'
 gem 'font-awesome-rails'
+gem 'will_paginate', '~> 3.3'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"

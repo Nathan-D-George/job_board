@@ -1,5 +1,14 @@
 <h3> Companies </h3>
+
 <%= turbo_stream_from "companies" %>
-<div id="companies">
-  <%= render @companies %>
+<div id="companies" class='d-flex justify-content-center align-items-center'>
+  <div class='company-list'>
+    <%= render @companies %>
+  </div>
+</div>
+
+<div class='d-flex justify-content-center align-items-center'>
+  <div class="flickr_pagination" id=footer'>
+    <%= will_paginate @companies %>
+  </div>
 </div>

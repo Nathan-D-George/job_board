@@ -82,7 +82,7 @@ class CompaniesController < ApplicationController
   end
 
   def list
-    @companies = Company.all.order(name: :asc)
+    @companies = Company.all.order(name: :asc).paginate(page: params[:page], per_page: 6)
   end
 
   def edit

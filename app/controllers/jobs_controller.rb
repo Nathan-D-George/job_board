@@ -45,10 +45,10 @@ class JobsController < ApplicationController
 
   def list
     if Current.user.companies.blank?
-      @jobs = Job.all.order(id: :desc) 
+      @jobs = Job.all.order(id: :desc).paginate(page: params[:page], per_page: 5) 
     else
       company = Current.user.companies.first
-      @jobs   = Job.where(company_id: company.id).all 
+      @jobs   = Job.where(company_id: company.id).all.paginate(page: params[:page], per_page: 5) 
     end
   end
 

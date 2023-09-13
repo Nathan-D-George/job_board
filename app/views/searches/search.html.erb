@@ -1,31 +1,41 @@
+  <div class='col-md-12'>
+    <%= form_with model: @search, url: search_results_path, class:'col-md-8', method: :post, id: 'search_form' do |f| %>
+      <%= f.search_field :name, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
+      <%= f.label :categories, class:'mt-2 mb-2' %>
+      <%= f.select :categories, @categories, {prompt: '(no category)'}, {multiple: true, size:4, class:'form-select'} %>
+      <%= f.submit "Search", class:'btn btn-outline-dark mt-3' %>
+    <% end %>
+  </div>
 <div class='row'>
-  <%= form_with model: @search, url: search_results_path, class:'col-md-8', method: :post, id: 'search_form' do |f| %>
-    <%= f.search_field :name, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
-    <%= f.label :categories, class:'mt-2 mb-2' %>
-    <%= f.select :categories, @categories, {prompt: '(no category)'}, {multiple: true, size:4, class:'form-select'} %>
-    <%= f.submit "Search", class:'btn btn-outline-dark mt-3' %>
-  <% end %>
   <h4 class='mt-4 mb-4'> Search Results </h4>
-  <div class='col-md-5'>
+  <div class='col-md-5'>    
+    <h5> People </h5>
     <% if @users.present? %>
-      <h5> People </h5>
       <div id="search_results">
         <%= render "searches/search_results", users: @users %>
       </div>
+    <% else %>
+      No similar usernames found
     <% end %>
   </div>
   <div class='col-md-1'></div>
   <div class=col-md-5>
+    <h5> Businesses/Jobs </h5>
     <% if @companies.present? || @jobs.present? %>
-      <h5> Businesses/Jobs </h5>
       <div id="search_results2">
         <% if @companies.present? %>
           <%= render "searches/company_results", companies: @companies %>
+        <% else %>
+          No similar companies found
         <% end %>
         <% if @jobs.present? %>
           <%= render "searches/job_results", jobs: @jobs %>
+        <% else %>
+          No similar jobs found
         <% end %>
       </div>
+    <% else %>
+      No similar companies/jobs found
     <% end %>
   </div>
 </div>
