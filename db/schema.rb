@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_072546) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_071116) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -133,6 +133,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_072546) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.integer "theme", default: 0
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
+
   create_table "user_categories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "category_id", null: false
@@ -166,6 +172,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_072546) do
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "settings", "users"
   add_foreign_key "user_categories", "categories"
   add_foreign_key "user_categories", "users"
 end

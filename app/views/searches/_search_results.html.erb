@@ -1,6 +1,6 @@
 <div class="list-group">
   <% users.each do |user| %>
-    <%= link_to show_user_path(id: user.id), class:"list-group-item list-group-item-action mb-4", style:'color:black; text-decoration: none' do %>
+    <%= link_to show_user_path(id: user.id), class:"list-group-item list-group-item-action mb-4 post" do %>
       <div class='row'>
         <div class='col-md-3'>
         <%= image_tag(user.photo, class:'small-circle-photo') if user.photo.present? %>

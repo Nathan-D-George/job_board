@@ -26,6 +26,9 @@ class UsersController < ApplicationController
           UserCategory.create(user_id: user.id, category_id: Category.where(name: category).first.id)
         end
       }
+      setting = Setting.new
+      setting.user_id = user.id
+      setting.save
       flash[:notice]    = "Account created. Welcome #{user.name}!"
       session[:user_id] = user.id
       redirect_to new_profile_path

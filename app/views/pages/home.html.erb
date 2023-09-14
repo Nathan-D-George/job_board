@@ -1,11 +1,12 @@
 <h1 class='text-center mt-4 mb-4'>GetWork</h1>
+
 <div class='col-md-12'>
   <%= image_tag @photo, class:'col-md-12' %>
 </div>
+
 <p class='text-center mt-3'>
   Looking for a job? We are here to help.
 </p>
-
 <p class='text-center'>
   Looking for employees? You've come to the right place.
 </p>
@@ -13,7 +14,7 @@
   <% if !Current.user.present? %>
     <%= link_to 'Sign Up', new_user_path,    class:'btn col-4', style:'background-color: gainsboro' %>
     <%= link_to 'Sign In', new_session_path, class:'btn btn-outline-dark col-3' %>
-    <%= link_to 'Register a Company', new_company_user_path, class:'btn col-4', style:'background-color: gainsboro; casolor:gainsboro' %>
+    <%= link_to 'Register a Company', new_company_user_path, class:'btn col-4', style:'background-color: gainsboro; color:gainsboro' %>
   <% else %>
     <%= link_to 'Job Feed', list_jobs_path, class:'btn col-4', style:'background-color: gainsboro' %>
   <% end %>

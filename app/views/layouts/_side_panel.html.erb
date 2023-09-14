@@ -1,31 +1,31 @@
 <% if Current.user.present?%>
   <p> 
-    <%= link_to show_user_path(id:Current.user.id), style:'color: black; text-decoration: none' do %>
+    <%= link_to show_user_path(id:Current.user.id), class:'sidepanel-text', style:'text-decoration: none' do %>
       <%= fa_icon 'user' %> &nbsp My Profile 
     <% end %>
   </p>
 <% end %>
 <p>
-  <%= link_to list_posts_path, style:'color: black; text-decoration: none' do %>
+  <%= link_to list_posts_path, class:'sidepanel-text' do %>
     <%= fa_icon 'th-list' %> &nbsp Posts
   <% end %>
 </p>
 <p>
-  <%= link_to new_post_path, style:'color: black; text-decoration: none' do %>
+  <%= link_to new_post_path, class:'sidepanel-text' do %>
     <%= fa_icon 'plus-square' %> &nbsp New Post
   <% end %>
 </p>
 <p> 
-  <%= link_to list_applications_path, style:'color: black; text-decoration: none' do %>
+  <%= link_to list_applications_path, class:'sidepanel-text' do %>
     <%= fa_icon 'file-text' %> &nbsp Your Applications
   <% end %>
 </p>
 <p> 
-  <%= link_to '#', style:'color: black; text-decoration: none' do %>
+  <%= link_to show_settings_path(id: Current.user.id), class:'sidepanel-text' do %>
     <%= fa_icon 'gear' %> &nbsp Settings 
   <% end %>
 </p>
 
 <p class='row'>
-  <%= link_to "Search", search_path, class:'btn btn-outline-dark col-9' %>
+  <%= link_to "Search", search_path, class:'btn btn-outline-dark col-9 sidepanel-text' %>
 </p> 

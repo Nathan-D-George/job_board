@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   def list
     @posts = Post.all.order(id: :desc)
   end
-
+ 
   def edit
     @post = Post.find(params[:id].to_i)
   end
@@ -52,6 +52,20 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = 'Post successfully Deleted!'
     redirect_to root_path
+  end
+
+  def repost 
+    old_post = Post.find(params[:id].to_i)
+    new_post = Post.new
+    new_post.title = old_post.title
+    new_post.body  = old_post.body.concat(" ~ #{User.find(old_post.user_id).name}")
+    new_post.user_id = Current.user.id
+    if new_post.save
+      flash[:notice] = "Successfully reposted"
+      redirect_to list_posts_path
+    else
+      flash.now[:alert] = "Something went wrong"
+    end
   end
 
   private

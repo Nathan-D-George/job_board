@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get   '/settings/edit',   to: 'settings#edit',   as: 'edit_settings'
+  get   '/settings/show',   to: 'settings#show',   as: 'show_settings'
+  post '/settings/update', to: 'settings#update', as: 'update_settings'
+
   resources :comments, except: [:new, :edit, :show, :destroy]
   post   '/comments/create',  to: 'comments#create',  as: 'create_comment'
   get    '/comments/edit',    to: 'comments#edit',    as: 'edit_comment'
@@ -17,6 +21,7 @@ Rails.application.routes.draw do
   get    '/posts/edit',    to: 'posts#edit',    as: 'edit_post'
   patch  '/posts/update',  to: 'posts#update',  as: 'update_post'
   delete '/posts/destroy', to: 'posts#destroy', as: 'destroy_post'
+  post   '/posts/repost',  to: 'posts#repost',  as: 'repost'
 
   post   '/friendships/create', to: 'friendships#create', as: 'follow'
   delete '/friendships/delete', to: 'friendships#delete', as: 'unfollow'

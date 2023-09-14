@@ -1,9 +1,9 @@
   <div class='col-md-12'>
     <%= form_with model: @search, url: search_results_path, class:'col-md-8', method: :post, id: 'search_form' do |f| %>
-      <%= f.search_field :name, class:'form-control' ,placeholder: 'Search name', autocomplete: 'off' %>
+      <%= f.search_field :name, class:'form-control post' ,placeholder: 'Search name', autocomplete: 'off' %>
       <%= f.label :categories, class:'mt-2 mb-2' %>
-      <%= f.select :categories, @categories, {prompt: '(no category)'}, {multiple: true, size:4, class:'form-select'} %>
-      <%= f.submit "Search", class:'btn btn-outline-dark mt-3' %>
+      <%= f.select :categories, @categories, {prompt: '(no category)'}, {multiple: true, size:4, class:'form-select post'} %>
+      <%= f.submit "Search", class:'btn btn-secondary mt-3' %>
     <% end %>
   </div>
 <div class='row'>
@@ -15,7 +15,7 @@
         <%= render "searches/search_results", users: @users %>
       </div>
     <% else %>
-      No similar usernames found
+      No similar usernames found 
     <% end %>
   </div>
   <div class='col-md-1'></div>

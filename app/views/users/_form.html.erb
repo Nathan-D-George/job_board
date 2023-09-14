@@ -1,43 +1,43 @@
 <%= form_with model:@user, local: true do |u| %>
   <p>
     <%= u.label :name %>
-    <%= u.text_field :name, class:'form-control' %>
+    <%= u.text_field :name, class:'form-control post' %>
   </p>
   <p>
     <%= u.label :email %>
-    <%= u.text_field :email, class:'form-control' %>
+    <%= u.text_field :email, class:'form-control post' %>
   </p>
   
   <p>
-    <%= u.file_field :photo, accept: 'image/jpg, image/jpeg, image/png, image/avif', class:'form-control' %>
+    <%= u.file_field :photo, accept: 'image/jpg, image/jpeg, image/png, image/avif', class:'form-control post' %>
   </p> 
 
   <% if @user.new_record? %>
     <p>
       <%= u.label :password %>
-      <%= u.password_field :password, class:'form-control' %>
+      <%= u.password_field :password, class:'form-control post' %> 
     </p>
     <p>
       <%= u.label :password_confirmation %>
-      <%= u.password_field :password_confirmation, class:'form-control' %>
+      <%= u.password_field :password_confirmation, class:'form-control post' %>
     </p>
   <% else %>
     <%= link_to "Change Pasword", edit_password_path(id: @user.id), class:'btn btn-dark mt-4 mb-4'%>
   <% end %>  
   <p>
     <%= u.label  :tertiary_education %>
-    <%= u.select :tertiary_education, ["no", "studying", "completed"], {}, {class:'form-select'} %>
+    <%= u.select :tertiary_education, ["no", "studying", "completed"], {}, {class:'form-select post'} %>
   </p>
   <p>
     <%= u.label  :Job_Types_Youre_Interested_In %>
-    <%= u.select :categories, Category.list_options, {prompt: '(no category)'}, {multiple: true, size: 3, class:'form-select'} %> 
+    <%= u.select :categories, Category.list_options, {prompt: '(no category)'}, {multiple: true, size: 3, class:'form-select post'} %> 
   </p>
   <p>
     <%= u.label :cover_letter %>
-    <%= u.text_area :cover_letter, class:'form-control', style:'height:200px' %>
+    <%= u.text_area :cover_letter, class:'form-control post', style:'height:200px' %>
   </p>
 
   <p>
-    <%= u.submit(@user.new_record? ? "Create Account" : "Update Account", class:'btn', style:'background-color: gainsboro') %>
+    <%= u.submit(@user.new_record? ? "Create Account" : "Update Account", class:'btn post') %>
   </p>
 <% end %> 

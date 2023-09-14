@@ -1,0 +1,10 @@
+<div class='col-md-2'>
+  <h1> Edit Settings </h1>
+
+  <%= form_with model: @settings, url: update_settings_path, method: :post do |f| %>
+    <h5> <%= f.label :Theme, class:'custom-control-input mt-4' %> </h5>
+    <%= f.select :theme, ["light", "dark"], {}, { class: 'form-select mt-3' }  %>
+    <%= f.submit "Update Settings", class:'btn btn-primary mt-3' %>
+  <% end %>
+  <%= link_to "Cancel", show_settings_path(id: @settings.user_id), class:'btn btn-secondary mt-3' %>
+</div>

@@ -1,6 +1,10 @@
 <h2> Profile </h2>
 
-<div class="card col-md-10">
+<% if Current.user.settings.first.theme == "dark" %>
+<div class="card col-md-10 bg-dark">
+<% else %>
+  <div class="card col-md-10 bg-light">
+<% end %>
   <div class="card-header text-center">
     <h2> <%= image_tag(@user.photo, class:'circle-photo') if @user.photo.present?%> </h2>
   </div>
@@ -48,5 +52,5 @@
 <% end %>
 <%= render 'profile' %>
 <% if Current.user.id == @user.id %>
-  <%= link_to "Edit Academic Profile",  edit_profile_path(id: @profile.id), class:'btn mt-4 mb-4', style:'background-color: gainsboro' %>
+  <%= link_to "Edit Academic Profile",  edit_profile_path(id: @profile.id), class:'btn btn-dark mt-4 mb-4' %>
 <% end %>
