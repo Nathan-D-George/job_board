@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   $post_id = nil
+  $comment_id = nil
   before_action :logged_in_only
 
   def create
@@ -23,11 +24,25 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @comment = Comment.find(params[:id])
+    $comment_id = params[:id].to_i
   end
 
   def update
+    comment  = Comment.find($comment_id)
+    comment.content = params[:comment][:content]
+    if comment.save
+      flash[:notice] = 'Comment updated'
+      redirect_to list_comments_path(id: $post_id)
+    else
+      flash[:alert]  = "something went wrong"
+      render :edit
+    end
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    redirect_to list_comments_path(id: $post_id)
   end
 end

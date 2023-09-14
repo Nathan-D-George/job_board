@@ -3,15 +3,28 @@
 
 <%= turbo_stream_from "comments" %>
 <div class="commentss" id="comments" data-aos='fade-righdt' data-aos-duration='2300' style='width: 700px; padding-bottom:20px;'>
-  <div class="commentss-top">
+  <div class="commentss-top" data-controller="context-menu">
     <% if @comments.present? %>
       <% @comments.each do |c| %> 
         <div class="rbox-<%= c.user_id %>">
-          <div class="comment-box cbox-<%= c.user_id %>"> 
-            <%= c.content %> 
+          <div class="comment-box cbox-<%= c.user_id %>" data-action="contextmenu->context-menu#open"> 
+            <p data-todo-id="<%= c.id %>">
+              <%= c.content %> 
+            </p>
+            <% if Current.user.id == c.user_id %>
+              <%= link_to edit_comment_path(id: c.id), style:'color:white' do %> 
+                <%= fa_icon "pencil-square-o" %> 
+              <% end %>
+              <% link_to "edit", edit_comment_path(id: c.id), data:{ turbo_frame: "modal" }, remote: true %> 
+              &nbsp &nbsp
+              <%= link_to destroy_comment_path(id: c.id), style:'color: white', data:{turbo_method: :delete, turbo_confirm: 'Delete?'} do %>
+                <%= fa_icon "trash-o" %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       <% end %> 
+      <%= render "comments/context_menu" %>
     <% else %>
       <div> Be the First to Comment </div>
     <% end%>

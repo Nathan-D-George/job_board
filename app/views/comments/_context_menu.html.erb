@@ -1,0 +1,18 @@
+<div id="context-menu" data-context-menu-target="menu" class="hidden">
+  <%= link_to root_path, data:{ context_menu_target: 'showLink' } do %>
+    <%= fa_icon "plus-square-o" %>
+    home
+  <% end %>
+  <%= link_to search_path, data:{ context_menu_target: 'editLink' } do %>
+    <%= fa_icon "pencil-square-o" %>
+    search
+  <% end %>
+  <%= link_to "#", data:{ context_menu_target: "deleteLink", confirm: 'Delete?', turbo_method: :delete } do %>
+    <%= fa_icon "trash-o" %>
+    delete
+  <% end %>
+  <%= link_to "#" do %>
+    <%= fa_icon "question-circle-o" %>
+    goes nowhere
+  <% end %>
+</div>
