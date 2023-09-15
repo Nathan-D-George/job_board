@@ -39,8 +39,10 @@ class JobsController < ApplicationController
   end
 
   def show
-    @enlistments = Enlistment.where(job_id: @job.id, user_id: Current.user.id).all
+    @enlistments = Enlistment.where(job_id: @job.id, user_id: Current.user.id).all if Current.user.companies.blank?
+    @enlistments = Enlistment.where(job_id: @job.id).all if Current.user.companies.present?
     @categories  = @job.categories
+    console
   end
 
   def list
@@ -49,7 +51,7 @@ class JobsController < ApplicationController
     else
       company = Current.user.companies.first
       @jobs   = Job.where(company_id: company.id).all.paginate(page: params[:page], per_page: 5) 
-    end
+    end 
   end
 
   def edit

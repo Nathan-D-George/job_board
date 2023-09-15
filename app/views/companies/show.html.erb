@@ -36,12 +36,14 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </div>
-<% if @friendship.new_record? %>
+<% if @friendship.present? && @friendship.new_record? %>
   <%= link_to "Follow Company", follow_path(id: @company.user_id), class:'btn btn-primary', data:{turbo_method: :post} %>
 <% else %>
-  <%= link_to "Unfollow Company", unfollow_path(id: @company.user_id), class:'btn', style:'background-color: red; color:black', data:{turbo_method: :delete, turbo_confirm: "Unfollow?"} %>
+  <% if Current.user.id != @company.user_id %>
+    <%= link_to "Unfollow Company", unfollow_path(id: @company.user_id), class:'btn', style:'background-color: red; color:black', data:{turbo_method: :delete, turbo_confirm: "Unfollow?"} %>
+  <% end %>
 <% end %>
 <% if @company.user_id == Current.user.id %>
   <div>
@@ -62,7 +64,7 @@
           <% end %>
           <%= link_to enlistment.name, review_application_path(id: enlistment.id), style:'color: black; text-decoration: none' %>
         </p>
-      <% end %>
+      <% end %> 
     <% end %>
   </div>
 <% else %>

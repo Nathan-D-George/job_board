@@ -20,12 +20,13 @@
     <%= fa_icon 'file-text' %> &nbsp Your Applications
   <% end %>
 </p>
-<p> 
-  <%= link_to show_settings_path(id: Current.user.id), class:'sidepanel-text' do %>
-    <%= fa_icon 'gear' %> &nbsp Settings 
-  <% end %>
-</p>
-
+<% if Current.user.present? %>
+  <p> 
+    <%= link_to show_settings_path(id: Current.user.id), class:'sidepanel-text' do %>
+      <%= fa_icon 'gear' %> &nbsp Settings 
+    <% end %>
+  </p>
+<% end %>
 <p class='row'>
   <%= link_to "Search", search_path, class:'btn btn-outline-dark col-9 sidepanel-text' %>
 </p> 

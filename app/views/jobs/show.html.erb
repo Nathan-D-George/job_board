@@ -1,7 +1,7 @@
 <div class='d-flex justify-content-center'>
   <div class="card col-md-8 mt-4 mb-4 post">
     <div class="card-header text-center">
-      <h2> <%= image_tag(@company.logo, class:'circle-photo') if @company.logo.present?%> </h2>
+      <h2> <%= image_tag(@company.logo, class:'circle-photo') if @company.logo.present? %> </h2>
       <h2> <%= @company.name %> </h2>
     </div>
     <div class="card-body row">
@@ -38,12 +38,6 @@
     <div class="card-footer text-muted d-flex justify-content-center">
       <% if @company.user_id == Current.user.id %>
         <%= link_to "Edit Job", edit_job_path(id: @job.id), class:'btn btn-dark' %>
-        <% if @enlistments.present? %>
-          <%= turbo_stream_from "enlistments" %>
-          <div id="enlistments">
-            <%= render @enlistments %>
-          </div>
-        <% end %>
       <% else %>
         <% if @enlistments.blank? %>
           <%= link_to "Apply", create_application_path(job_id: @job.id), data:{turbo_method: :post}, class:'btn btn-primary' %>
@@ -52,7 +46,24 @@
         <% end %>
       <% end %>
     </div>
-
   </div>
 </div>
-
+<% if @company.user_id == Current.user.id %>
+  <% if @enlistments.present? %>
+    <%= turbo_stream_from "enlistments" %>
+    <div id="enlistments">
+    <p>
+      <% @enlistments.each do |enlistment| %>
+          <% if enlistment.status == "interview" %>
+            <%= fa_icon "check" %> &nbsp 
+          <% elsif enlistment.status == "rejected" %>
+            <%= fa_icon "times" %> &nbsp 
+          <% else %>
+            <%= fa_icon "square-o" %> &nbsp
+          <% end %>
+          <%= link_to enlistment.name, review_application_path(id: enlistment.id), style:'color: black; text-decoration: none' %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

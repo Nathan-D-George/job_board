@@ -24,17 +24,18 @@ class EnlistmentsController < ApplicationController
     @enlistment = Enlistment.find(params[:id])
     job = Job.find(@enlistment.job_id)
     @enlistment.destroy
-    flash[:notice] = "Cancelled application for #{job.name}"
+    flash[:notice] = "Cancelled application for #{job.name}" 
     redirect_to show_job_path(id: job.id)
   end
 
   def review
     @enlistment = Enlistment.find(params[:id])
     @applicant  = User.find(@enlistment.user_id)
+    @profile    = Profile.where(user_id: @applicant.id).first if Profile.where(user_id: @applicant.id).present?
     @job        = Job.find(@enlistment.job_id)
     @company    = Company.find(@job.company_id)
   end
-
+ 
   def invite
     enlistment = Enlistment.find(params[:id])
     user = User.find(enlistment.user_id)

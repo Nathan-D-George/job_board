@@ -1,0 +1,17 @@
+<style>
+.vl {
+  border-left: 2px solid #b3a757;
+}
+</style>
+
+<% if Current.user.present? && Current.user.settings.first.theme == "dark" %>
+  <nav class="navbar navbar-expand-lg navbar-light" style='height: 150px; background-color: black; color: white'>
+<% else %>
+  <nav class="navbar navbar-expand-lg navbar-light" style='height: 150px; background-color: gainsboro; color: black'>
+<% end %>
+  <div class="container-fluid col-md-10">
+    <div class="collapse navbar-collapse d-flex justify-content-center align-items-center">
+      <a class="nav-link active sidepanel-text" href="/about">About Us</a>
+    </div>  
+  </div>
+</nav>

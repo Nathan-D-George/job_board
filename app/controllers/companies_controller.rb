@@ -65,7 +65,7 @@ class CompaniesController < ApplicationController
       # company      = Current.user.companies.first
       jobs         = Job.where(company_id: @company.id).all
       jobs.each {|job|
-        enlistments = Enlistment.where(job_id: job.id).all  #if Enlistment.where(job_id: job.id).present?
+        enlistments = Enlistment.where(job_id: job.id).all.order(job_id: :asc)  #if Enlistment.where(job_id: job.id).present?
         enlistments.each{|enlistment|
           @enlistments.append(enlistment)
         }
